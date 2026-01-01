@@ -18,10 +18,3 @@ def check_verify_password(plain_password: str, hash_password: str):
             return verify_password
         except:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid email or password")
-
-plain_password = "Hamdan123#!"        
-x = create_hash_password(plain_password)
-print("hashed password" , x)
-
-is_valid = check_verify_password("Hamdan124#!", x)
-print("Password match (correct):", is_valid)
