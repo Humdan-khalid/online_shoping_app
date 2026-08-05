@@ -1,0 +1,51 @@
+from jose import jwt, JWTError , ExpiredSignatureError
+from datetime import datetime, timedelta, timezone
+from dotenv import load_dotenv
+from fastapi import HTTPException, status, Depends
+import os
+import logging
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+load_dotenv()
+
+logging.basicConfig(level=logging.INFO)
+logger=logging.getLogger(__name__)
+
+SECRET_KEY=os.getenv("SECRET_KEY")
+ALGORITHM=os.getenv("ALGORITHM")
+
+def verify_secret_keys():
+    if not SECRET_KEY :
+        raise ValueError("Secret Key not Found!")
+    
+    if not ALGORITHM:
+        raise ValueError("Algorithm not FOund!")
+
+## this function create a token.
+def create_token(user_data: dict, time_expiry: timedelta = timedelta(minutes=30)):
+    verify_secret_keys()
+    payload = user_data.copy()
+    payload["exp"] = datetime.now(timezone.utc) + time_expiry
+    payload["sub"] = str(user_data["id"])
+    payload["type"] = "access"
+    token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
+    return token
+
+## this function decode the token.
+def verify_token(token: str):
+    try:
+        check_token = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        return check_token
+    except ExpiredSignatureError:
+        logger.warning("Token has expired!")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="token expired!")
+    except JWTError:
+        logger.warning("Invalid token!")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Token")
+        
+
+security = HTTPBearer()
+
+def get_user_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    token = credentials.credentials
+    return verify_token(token)
