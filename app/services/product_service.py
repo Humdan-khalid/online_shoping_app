@@ -2,23 +2,18 @@ from sqlmodel import Session, select
 from app.database_models.product_model import CreateProduct, Products, UpdateProduct
 from app.database_models.cart_model import Cart
 from app.core import exceptions
-from app.database_models.seller_model import Sellers
 from app.repository.product_repo import product_save_in_database, find_product_in_database, find_seller_products_in_database, get_products, find_seller_product_with_id, find_product_with_id
 from sqlalchemy.exc import DatabaseError
 from app.core.log_config import logging
-from app.repository.seller_repo import find_seller_in_database
+from app.repository.seller_repo import find_seller_in_database, get_seller_from_token
 from app.repository.user_repo import get_user_by_id
 from app.database_models.order_model import Orders, CreateOrder
 
 def create_new_product(product: CreateProduct, session: Session, token: dict):
     try:
-        db_seller = session.exec(
-            select(Sellers).where(
-                Sellers.id == token["id"]
-            )
-        ).first()
+        seller = get_seller_from_token(token, session)
 
-        if not db_seller:
+        if not seller:
             logging.warning(f"Unauthorized seller tried for the login, but system rejected the token.")
             raise exceptions.InvalidToken("Invalid seller token.")
 
@@ -30,7 +25,7 @@ def create_new_product(product: CreateProduct, session: Session, token: dict):
             brand=product.brand,
             description=product.description,
             quantity=product.quantity,
-            seller_id=db_seller.id
+            seller_id=seller.id
         )
 
         product_save_in_database(new_product, session)
@@ -40,18 +35,18 @@ def create_new_product(product: CreateProduct, session: Session, token: dict):
         logging.exception("Database error while created the new product.")
         raise
 
-
-def update_product_attributes(product_id: int,  product_update: UpdateProduct, seller: int, session: Session):
+def update_product_attributes(product_id: int,  product_update: UpdateProduct, seller: dict, session: Session):
     try:
-        db_seller = find_seller_in_database(seller, session)
+        db_seller = get_seller_from_token(seller, session)
 
         if not db_seller:
-            logging.warning(f"Unauthorized seller tried to update the product, but system rejected the token. | seller_id: {seller}")
+            logging.warning(f"Unauthorized seller tried to update the product, but system rejected the token. | seller_id: {seller['id']} | seller_email: {seller['email']}.")
             raise exceptions.UnauthorizedSeller("Unauthorized seller tried to update the product, but system rejected the token.")
         
-        product = find_product_in_database(product_id, seller, session)
+        product = find_product_in_database(product_id, seller['id'], session)
 
         if not product or product.status == "Not Available":
+            logging.warning(f"Seller found the product but product not found! | Product_id: {product_id}")
             raise exceptions.ProductNotFound("Product not found!")
 
         product_convert_dict = product_update.dict(exclude_none= True)
@@ -62,7 +57,6 @@ def update_product_attributes(product_id: int,  product_update: UpdateProduct, s
             setattr(product, key, value)
 
         print(product_update)
-
 
         session.add(product)
         session.commit()

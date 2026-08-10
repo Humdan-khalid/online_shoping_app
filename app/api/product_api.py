@@ -9,10 +9,9 @@ from sqlalchemy.exc import DatabaseError
 from app.services.product_service import create_product_order
 from app.database_models.order_model import CreateOrder
 
-
 router = APIRouter()
 
-@router.post("/new-product", status_code=status.HTTP_201_CREATED, response_model=ReadProduct)
+@router.post("/products", status_code=status.HTTP_201_CREATED, response_model=ReadProduct)
 def new_product(product: CreateProduct, session: Session=Depends(get_session), token: dict=Depends(get_user_token)):
     try:
         return create_new_product(product, session, token)
@@ -23,10 +22,11 @@ def new_product(product: CreateProduct, session: Session=Depends(get_session), t
     except DatabaseError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
 
-@router.patch("/product-update", status_code=status.HTTP_200_OK)
+@router.patch("/product", status_code=status.HTTP_200_OK)
 def product_update(product_id: int, product: UpdateProduct, seller: dict=Depends(get_user_token), session: Session=Depends(get_session)):
     try:
-        return update_product_attributes(product_id, product, seller['id'], session)
+        return update_product_attributes(product_id, product, seller, session)
+    
     except exceptions.UnauthorizedSeller:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized Seller.")
     

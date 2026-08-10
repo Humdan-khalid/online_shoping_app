@@ -30,3 +30,14 @@ def find_seller_in_database(seller_id: int, session: Session):
     ).first()
 
     return db_seller
+
+
+def get_seller_from_token(seller:dict, session: Session):
+    db_seller = session.exec(
+        select(Sellers).where(
+            Sellers.id == seller["id"],
+            Sellers.email == seller["email"]   
+            )
+        ).first()
+
+    return db_seller

@@ -13,7 +13,6 @@ def test_create_user(client):
         }
     )
 
-
     assert response.status_code == 201
 
 def test_create_user_with_existing_email(client):
@@ -133,7 +132,7 @@ def test_create_user_with_wrong_email(client):
             "age": 90,
             "phone_number": "03001234177",
             "city": "Karachi",
-            "email": "hamdan997com",
+            "email": "hamdan7com",
             "password": "helor63535"
         }
     )
@@ -142,3 +141,18 @@ def test_create_user_with_wrong_email(client):
     data = response.json()
     assert data["detail"][0]["loc"] == ["body", "email"]
     assert response.status_code == 422
+
+
+def test_user_login_successfully(client):
+    response = client.post(
+        "/user-login",
+        json = {
+            "email": "hamdagaf@gmail.com",
+            "password": "HahaFAFtR4"
+        }
+    )
+
+    data = response.json()
+
+    assert data["detail"] == "Invalid email or password!"
+    assert response.status_code == 404

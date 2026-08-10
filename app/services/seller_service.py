@@ -49,7 +49,8 @@ def seller_account_login(seller: SellerLogin, session: Session):
 
         token = create_token(
             {
-                "id": seller_exist.id
+                "id": seller_exist.id,
+                "email": seller_exist.email
             }
         )
 
