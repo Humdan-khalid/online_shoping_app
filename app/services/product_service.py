@@ -8,6 +8,7 @@ from app.core.log_config import logging
 from app.repository.seller_repo import find_seller_in_database, get_seller_from_token
 from app.repository.user_repo import get_user_by_id
 from app.database_models.order_model import Orders, CreateOrder
+from app.utils.redis_cache import get_seller_products_in_cache, store_seller_products_in_cache
 
 def create_new_product(product: CreateProduct, session: Session, token: dict):
     try:
@@ -112,11 +113,21 @@ def find_seller_products(seller_id: int, session: Session):
             logging.warning(f"Unauthorized seller tried to get the products, but system rejected the fake token. | seller_id: {seller_id}")
             raise exceptions.SellerNotExist("Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller}")
 
+        cache_data = get_seller_products_in_cache(seller_id)
+        print(f"Caccccchee data: {cache_data}") 
+
+        if cache_data:
+            print(f"cache_data: {cache_data}")
+            return cache_data
+
         db_products = find_seller_products_in_database(seller_id, session)
 
         if not db_products:
             logging.warning(f"Seller did not find the products | Seller: {seller_id}")
             raise exceptions.ProductNotFound("Product not found!")
+
+        store_seller_products_in_cache(seller_id, db_products)
+        print(f"Store_products: {db_products}")
 
         return{
             "products": db_products

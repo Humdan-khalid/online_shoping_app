@@ -1,9 +1,8 @@
-from app.services.product_service import create_new_product
+from app.services.product_service import create_new_product, update_product_attributes
 from unittest.mock import patch, Mock
-from app.database_models.product_model import Products
 import pytest
 from app.core import exceptions
-from app.repository.seller_repo import get_seller_from_token
+from app.database_models.product_model import UpdateProduct
 
 def test_create_product_but_seller_not_found():
 
@@ -50,3 +49,23 @@ def test_create_product_successfully():
         assert result.name == "Soft-Drink"
         fake_seller_verify.assert_called_once_with(token, fake_session)
         fake_database.assert_called_once()
+
+
+def test_update_product_failed():
+    product_update = Mock()
+    product_update.quantity = "90"
+    
+    product_id: int = 2
+
+    seller: dict = {
+        "id": 3,
+        "email": "hamdan@gmail.com"
+    }
+
+    session = Mock()
+
+
+    with patch("app.services.product_service.get_seller_from_token", return_value = None):
+        with pytest.raises(exceptions.UnauthorizedSeller):
+            updated = update_product_attributes(product_id, product_update, seller, session)
+            updated.assert_called_once()
