@@ -2,13 +2,13 @@ from sqlmodel import Session, select
 from app.database_models.product_model import CreateProduct, Products, UpdateProduct
 from app.database_models.cart_model import Cart
 from app.core import exceptions
-from app.repository.product_repo import product_save_in_database, find_product_in_database, find_seller_products_in_database, get_products, find_seller_product_with_id, find_product_with_id
+from app.repository.product_repo import product_save_in_database, find_seller_product_in_database, find_seller_products_in_database, get_products, find_seller_product_with_id, find_product_with_id, find_product_in_database
 from sqlalchemy.exc import DatabaseError
 from app.core.log_config import logging
 from app.repository.seller_repo import find_seller_in_database, get_seller_from_token
 from app.repository.user_repo import get_user_by_id
 from app.database_models.order_model import Orders, CreateOrder
-from app.utils.redis_cache import get_seller_products_in_cache, store_seller_products_in_cache
+from app.utils.redis_cache import get_seller_products_in_cache, store_seller_products_in_cache, delete_seller_products_in_cache
 
 def create_new_product(product: CreateProduct, session: Session, token: dict):
     try:
@@ -36,38 +36,41 @@ def create_new_product(product: CreateProduct, session: Session, token: dict):
         logging.exception("Database error while created the new product.")
         raise
 
-def update_product_attributes(product_id: int,  product_update: UpdateProduct, seller: dict, session: Session):
+def update_seller_product_attributes(product_id: int,  product_update: UpdateProduct, seller: dict, session: Session):
     try:
         db_seller = get_seller_from_token(seller, session)
 
         if not db_seller:
             logging.warning(f"Unauthorized seller tried to update the product, but system rejected the token. | seller_id: {seller['id']} | seller_email: {seller['email']}.")
             raise exceptions.UnauthorizedSeller("Unauthorized seller tried to update the product, but system rejected the token.")
-        
-        product = find_product_in_database(product_id, seller['id'], session)
 
-        if not product or product.status == "Not Available":
-            logging.warning(f"Seller found the product but product not found! | Product_id: {product_id}")
-            raise exceptions.ProductNotFound("Product not found!")
+        db_product = find_product_in_database(product_id, session)
 
-        product_convert_dict = product_update.dict(exclude_none= True)
-        print(product_update.dict(exclude_none=True))
-        print(product_update.dict())
+        if not db_product:
+            logging.info(f"Seller product not found in the database! | Product_id: {product_id}")
+            raise exceptions.ProductNotFound("Product not found in database!")
+
+        seller_product = find_seller_product_in_database(product_id, seller['id'], session)
+
+        if not seller_product or seller_product.status == "Not Available":
+            logging.warning(f"Seller attempted to update a product that does not belong to them. | Product_id: {product_id} | seller_id: {db_seller.id}")
+            raise exceptions.SellerProductNotFound("Product not found!")
+
+        product_convert_dict = product_update.model_dump(exclude_none= True)
 
         for key, value in product_convert_dict.items():
-            setattr(product, key, value)
+            setattr(seller_product, key, value)
 
-        print(product_update)
-
-        session.add(product)
+        session.add(seller_product)
         session.commit()
+
+        delete_seller_products_in_cache(db_seller.id)
 
         return{"Message" : "Product successfully updated"}
 
     except DatabaseError:
-        logging.exception("Database error while update the product data.")
+        logging.exception("Database error while seller update the product data.")
         raise 
-
 
 def delete_product_in_database(product_id: int, seller: int, session: Session):
     try:
@@ -114,7 +117,6 @@ def find_seller_products(seller_id: int, session: Session):
             raise exceptions.SellerNotExist("Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller}")
 
         cache_data = get_seller_products_in_cache(seller_id)
-        print(f"Caccccchee data: {cache_data}") 
 
         if cache_data:
             print(f"cache_data: {cache_data}")

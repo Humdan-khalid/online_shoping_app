@@ -49,7 +49,7 @@ def override_get_session():
 app.dependency_overrides[get_session] = override_get_session
 
 # 2. Database Setup Fixture
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(autouse=True)
 def setup_database():
     SQLModel.metadata.create_all(test_engine)
     yield

@@ -45,3 +45,6 @@ class StockFinished(Exception):
 
 class InvalidQuantity(Exception):
     pass
+
+class SellerProductNotFound(Exception):
+    pass

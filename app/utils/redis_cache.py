@@ -13,47 +13,11 @@ def get_seller_products_in_cache(seller_id: int):
 
     cache_data = r.get(key)
 
-    print("CACHE GET:", key)
-    print("CACHE DATA:", cache_data)
-
     if not cache_data:
         return None
 
-    json.loads(cache_data)
+    return json.loads(cache_data)
 
-# def store_seller_products_in_cache(seller_id: int, seller_products: list):
-#     key = f"seller_id {seller_id}"
-
-#     product_data = [
-#             product.model_dump()
-#             for product in seller_products
-#             ]
-
-#     r.set(key, 
-#           json.dumps(product_data),
-#         ex=90
-#         )
-
-# import json
-
-# def store_seller_products_in_cache(
-#     seller_id: int,
-#     seller_products: list
-# ):
-#     key = f"seller:{seller_id}:products"
-
-#     products_data = [
-#         product.model_dump()
-#         for product in seller_products
-#     ]
-
-#     r.set(
-#         key,
-#         json.dumps(products_data),
-#         ex=90
-#     )
-
-import json
 
 def store_seller_products_in_cache(
     seller_id: int,
@@ -68,8 +32,10 @@ def store_seller_products_in_cache(
 
     r.set(
         key,
-        json.dumps(products_data),
-        ex=90
+        json.dumps(products_data)
     )
 
-    print(f"Cache store: {key}")
+def delete_seller_products_in_cache(seller_id: int):
+    key = f"seller:{seller_id}"
+    return r.delete(key)
+    

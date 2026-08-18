@@ -1,5 +1,6 @@
+from app.database_models.user_model import Users
 
-def test_create_user(client):
+def test_create_user(client, db_session):
     response = client.post(
         "/users",
         json = {
@@ -15,7 +16,22 @@ def test_create_user(client):
 
     assert response.status_code == 201
 
-def test_create_user_with_existing_email(client):
+def test_create_user_with_existing_email(client, db_session):
+
+    user = Users(
+            id=2,
+            name="Hamdan",
+            age=22,
+            phone_number="03127273747",
+            city="Islamabad",
+            email="hamdan87@gmail.com",
+            password="Hello1245$!"
+        )
+
+    db_session.add(user)
+    db_session.commit()
+    db_session.refresh(user)
+    
     response = client.post(
         "/users",
         json = {

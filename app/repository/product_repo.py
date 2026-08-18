@@ -7,7 +7,15 @@ def product_save_in_database(product: CreateProduct, session: Session):
     session.commit()
     session.refresh(product)
 
-def find_product_in_database(product_id: int, seller_id: int, session: Session):
+def find_product_in_database(product_id: int, session: Session):
+    db_product = session.exec(
+        select(Products).where(
+            Products.id == product_id
+        )).first()
+
+    return db_product
+
+def find_seller_product_in_database(product_id: int, seller_id: int, session: Session):
     db_product = session.exec(
         select(Products).where(
             Products.id == product_id,

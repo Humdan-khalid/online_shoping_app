@@ -1,4 +1,4 @@
-from app.services.product_service import create_new_product, update_product_attributes, delete_product_in_database, find_seller_products, find_user_search_products, seller_find_product
+from app.services.product_service import create_new_product, update_seller_product_attributes, delete_product_in_database, find_seller_products, find_user_search_products, seller_find_product, create_product_order
 from sqlmodel import Session
 from fastapi import APIRouter, status, Depends, HTTPException
 from app.database_models.product_model import CreateProduct, ReadProduct, UpdateProduct
@@ -6,7 +6,6 @@ from app.database_config.database_connection import get_session
 from app.core.jwt_token import get_user_token
 from app.core import exceptions
 from sqlalchemy.exc import DatabaseError
-from app.services.product_service import create_product_order
 from app.database_models.order_model import CreateOrder
 
 router = APIRouter()
@@ -22,16 +21,19 @@ def new_product(product: CreateProduct, session: Session=Depends(get_session), t
     except DatabaseError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
 
-@router.patch("/product", status_code=status.HTTP_200_OK)
+@router.patch("/product/{product_id}", status_code=status.HTTP_200_OK)
 def product_update(product_id: int, product: UpdateProduct, seller: dict=Depends(get_user_token), session: Session=Depends(get_session)):
     try:
-        return update_product_attributes(product_id, product, seller, session)
+        return update_seller_product_attributes(product_id, product, seller, session)
     
     except exceptions.UnauthorizedSeller:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized Seller.")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized Seller!")
     
     except exceptions.ProductNotFound:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found!")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
+
+    except exceptions.SellerProductNotFound:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Product not found!")
 
     except DatabaseError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server error!")
