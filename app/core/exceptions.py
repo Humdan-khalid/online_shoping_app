@@ -4,9 +4,6 @@ class DatabaseError(Exception):
 class UserAlreadyExist(Exception):
     pass
 
-class DatabaseError(Exception):
-    pass
-
 class DatabaseConnectionFailed(Exception):
     pass
 
@@ -31,7 +28,7 @@ class SellerNotExist(Exception):
 class InvalidToken(Exception):
     pass
 
-class UnauthorizedSeller(Exception):
+class Unauthorized(Exception):
     pass
 
 class ProductNotFound(Exception):
@@ -47,4 +44,7 @@ class InvalidQuantity(Exception):
     pass
 
 class SellerProductNotFound(Exception):
+    pass
+
+class TokenExpired(Exception):
     pass

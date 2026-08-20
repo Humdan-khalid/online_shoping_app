@@ -12,22 +12,12 @@ router = APIRouter()
 
 @router.post("/products", status_code=status.HTTP_201_CREATED, response_model=ReadProduct)
 def new_product(product: CreateProduct, session: Session=Depends(get_session), token: dict=Depends(get_user_token)):
-    try:
         return create_new_product(product, session, token)
-
-    except exceptions.InvalidToken:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized Seller!")
-
-    except DatabaseError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
 
 @router.patch("/product/{product_id}", status_code=status.HTTP_200_OK)
 def product_update(product_id: int, product: UpdateProduct, seller: dict=Depends(get_user_token), session: Session=Depends(get_session)):
     try:
         return update_seller_product_attributes(product_id, product, seller, session)
-    
-    except exceptions.UnauthorizedSeller:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized Seller!")
     
     except exceptions.ProductNotFound:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
@@ -35,33 +25,19 @@ def product_update(product_id: int, product: UpdateProduct, seller: dict=Depends
     except exceptions.SellerProductNotFound:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Product not found!")
 
-    except DatabaseError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server error!")
-
 @router.delete("/product-delete", status_code=status.HTTP_200_OK)
 def product_delete(product_id: int, seller: dict=Depends(get_user_token), session: Session=Depends(get_session)):
     try:
         return delete_product_in_database(product_id, seller['id'], session)
-    except exceptions.SellerNotExist:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized seller!")
-
     except exceptions.ProductNotFound:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found!")
-    
-    except DatabaseError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
-
 
 @router.get("/seller-products", status_code=status.HTTP_200_OK)
 def get_products(seller: dict = Depends(get_user_token), session: Session=Depends(get_session)):
     try:
         return find_seller_products(seller['id'], session)
-    except exceptions.SellerNotExist:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized Seller!")
     except exceptions.ProductNotFound:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Products not found!")
-    except DatabaseError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
 
 
 @router.get("/search-product", status_code=status.HTTP_200_OK, response_model=list[ReadProduct])
@@ -72,21 +48,13 @@ def search_product(search: str, session: Session=Depends(get_session)):
     except exceptions.ProductNotFound:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Result not found!")
 
-    except DatabaseError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
-
 @router.get("/seller_product", status_code=status.HTTP_200_OK)
 def get_seller_product(product_id: int, seller: dict = Depends(get_user_token), session: Session = Depends(get_session)):
     try:
         return seller_find_product(product_id, seller['id'], session)
-    except exceptions.SellerNotExist:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized Seller")
 
     except exceptions.ProductNotFound:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product Not Found!")
-
-    except DatabaseError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
 
 @router.post("/buy-now/{product_id}", status_code=status.HTTP_201_CREATED)
 def buy_now(product_id: int, create_order: CreateOrder, user: dict=Depends(get_user_token), session: Session=Depends(get_session)):
@@ -107,5 +75,3 @@ def buy_now(product_id: int, create_order: CreateOrder, user: dict=Depends(get_u
     except exceptions.InvalidQuantity:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Invalid Quantity!")
 
-    except DatabaseError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Invalid Server Error!")

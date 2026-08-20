@@ -5,6 +5,7 @@ from fastapi import HTTPException, status, Depends
 import logging
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from app.core.config import secret_key, algorithm
+from app.core import exceptions
 
 load_dotenv()
 
@@ -20,7 +21,7 @@ def verify_secret_keys():
         raise ValueError("Algorithm not FOund!")
 
 ## this function create a token.
-def create_token(user_data: dict, time_expiry: timedelta = timedelta(minutes=30)):
+def create_token(user_data: dict, time_expiry: timedelta = timedelta(minutes=1)):
     verify_secret_keys()
     payload = user_data.copy()
     payload["exp"] = datetime.now(timezone.utc) + time_expiry
@@ -36,10 +37,10 @@ def verify_token(token: str):
         return check_token
     except ExpiredSignatureError:
         logger.warning("Token has expired!")
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="token expired!")
+        raise exceptions.TokenExpired("Token Expired!!")
     except JWTError:
         logger.warning("Invalid token!")
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid Token")
+        raise exceptions.InvalidToken("Token Error!")
         
 
 security = HTTPBearer()

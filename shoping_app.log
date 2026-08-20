@@ -2,3 +2,60 @@
 2026-08-18 19:56:31,557 | WARNING | app.core.jwt_token | Invalid token!
 2026-08-18 19:57:46,070 | WARNING | app.core.jwt_token | Invalid token!
 2026-08-18 20:01:55,861 | WARNING | root | Seller attempted to update a product that does not belong to them. | Product_id: 75 | seller_id: 31
+2026-08-20 18:04:23,417 | WARNING | root | Invalid admin trying to login to this email. | email: khalfan@gmail.com
+2026-08-20 18:57:15,566 | WARNING | app.core.jwt_token | Token has expired!
+2026-08-20 19:02:33,616 | INFO | httpx | HTTP Request: POST http://testserver/products "HTTP/1.1 201 Created"
+2026-08-20 19:02:34,952 | INFO | httpx | HTTP Request: POST http://testserver/products "HTTP/1.1 500 Internal Server Error"
+2026-08-20 19:02:35,112 | INFO | httpx | HTTP Request: PATCH http://testserver/product/3 "HTTP/1.1 200 OK"
+2026-08-20 19:02:37,897 | INFO | app.core.log_config | new user account created with this email | hamdan87@gmail.com
+2026-08-20 19:02:37,899 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-08-20 19:02:38,144 | WARNING | app.core.log_config | User account already exists at this email | hamdan87@gmail.com
+2026-08-20 19:02:38,161 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-08-20 19:02:38,405 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 19:02:38,551 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 19:02:38,685 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 19:02:38,822 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 19:02:39,012 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 19:02:39,221 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 19:02:39,397 | WARNING | app.core.log_config | User login failed with wrong email | hamdagaf@gmail.com
+2026-08-20 19:02:39,397 | INFO | httpx | HTTP Request: POST http://testserver/user-login "HTTP/1.1 404 Not Found"
+2026-08-20 19:02:41,298 | WARNING | root | Unauthorized seller tried for the login, but system rejected the token.
+2026-08-20 19:02:41,831 | INFO | root | Seller product not found in the database! | Product_id: 2
+2026-08-20 19:02:41,936 | WARNING | root | Seller attempted to update a product that does not belong to them. | Product_id: 2 | seller_id: 1
+2026-08-20 19:02:42,041 | WARNING | root | Seller attempted to update a product that does not belong to them. | Product_id: 2 | seller_id: 1
+2026-08-20 19:02:42,258 | WARNING | app.core.log_config | User login failed with wrong email | fatima@gmail.com
+2026-08-20 19:02:42,512 | WARNING | app.core.log_config | User login failed with wrong password | Hekdahj212
+2026-08-20 19:02:42,759 | INFO | app.core.log_config | User successfully login | user_id: 1.
+2026-08-20 19:02:42,890 | WARNING | app.core.log_config | User account already exists at this email | ahmad123@gmail.com
+2026-08-20 19:02:43,110 | INFO | app.core.log_config | new user account created with this email | ahmad12333@gmail.com
+2026-08-20 19:02:43,404 | ERROR | app.core.log_config | Password not found!
+2026-08-20 21:02:41,552 | WARNING | app.core.jwt_token | Token has expired!
+2026-08-20 21:03:05,555 | WARNING | app.core.jwt_token | Token has expired!
+2026-08-20 21:03:17,622 | INFO | httpx | HTTP Request: POST http://testserver/products "HTTP/1.1 201 Created"
+2026-08-20 21:03:18,802 | INFO | httpx | HTTP Request: POST http://testserver/products "HTTP/1.1 500 Internal Server Error"
+2026-08-20 21:03:18,899 | INFO | httpx | HTTP Request: PATCH http://testserver/product/3 "HTTP/1.1 200 OK"
+2026-08-20 21:03:19,090 | INFO | httpx | HTTP Request: PATCH http://testserver/product/3 "HTTP/1.1 404 Not Found"
+2026-08-20 21:03:19,165 | INFO | httpx | HTTP Request: PATCH http://testserver/product/3 "HTTP/1.1 403 Forbidden"
+2026-08-20 21:03:19,263 | INFO | httpx | HTTP Request: PATCH http://testserver/product/3 "HTTP/1.1 500 Internal Server Error"
+2026-08-20 21:03:19,494 | INFO | app.core.log_config | new user account created with this email | hamdan87@gmail.com
+2026-08-20 21:03:19,494 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-08-20 21:03:19,660 | WARNING | app.core.log_config | User account already exists at this email | hamdan87@gmail.com
+2026-08-20 21:03:19,662 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-08-20 21:03:19,771 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 21:03:19,883 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 21:03:20,001 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 21:03:20,110 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 21:03:20,232 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 21:03:20,350 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-08-20 21:03:20,466 | WARNING | app.core.log_config | User login failed with wrong email | hamdagaf@gmail.com
+2026-08-20 21:03:20,466 | INFO | httpx | HTTP Request: POST http://testserver/user-login "HTTP/1.1 404 Not Found"
+2026-08-20 21:03:21,926 | WARNING | root | Unauthorized seller tried for the login, but system rejected the token.
+2026-08-20 21:03:22,375 | INFO | root | Seller product not found in the database! | Product_id: 2
+2026-08-20 21:03:22,467 | WARNING | root | Seller attempted to update a product that does not belong to them. | Product_id: 2 | seller_id: 1
+2026-08-20 21:03:22,572 | WARNING | root | Seller attempted to update a product that does not belong to them. | Product_id: 2 | seller_id: 1
+2026-08-20 21:03:22,773 | WARNING | app.core.log_config | User login failed with wrong email | fatima@gmail.com
+2026-08-20 21:03:23,039 | WARNING | app.core.log_config | User login failed with wrong password | Hekdahj212
+2026-08-20 21:03:23,470 | INFO | app.core.log_config | User successfully login | user_id: 1.
+2026-08-20 21:03:23,559 | WARNING | app.core.log_config | User account already exists at this email | ahmad123@gmail.com
+2026-08-20 21:03:23,730 | INFO | app.core.log_config | new user account created with this email | ahmad12333@gmail.com
+2026-08-20 21:03:23,996 | ERROR | app.core.log_config | Password not found!
