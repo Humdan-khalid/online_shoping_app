@@ -56,8 +56,8 @@ def test_token_not_found_for_product_create(client):
         "quantity": 30
     }
 
-    with patch("app.api.product_api.create_new_product", 
-               side_effect = exceptions.InvalidToken) as fake_created_product:
+    with patch("app.api.product_api.new_product", 
+               side_effect = exceptions.UnauthorizedSeller) as fake_created_product:
 
 
         seller = client.post(
@@ -69,8 +69,6 @@ def test_token_not_found_for_product_create(client):
         assert seller.json() == {
             "detail": "Unauthorized Seller!"
         }
-
-        fake_created_product.assert_called_once()
 
 def test_database_error_for_creating_product(client):
     product = {

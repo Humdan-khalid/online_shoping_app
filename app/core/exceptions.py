@@ -28,7 +28,7 @@ class SellerNotExist(Exception):
 class InvalidToken(Exception):
     pass
 
-class Unauthorized(Exception):
+class UnauthorizedSeller(Exception):
     pass
 
 class ProductNotFound(Exception):

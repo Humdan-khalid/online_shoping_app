@@ -14,7 +14,7 @@ def test_create_product_but_seller_not_found():
     }
 
     with patch("app.services.product_service.get_seller_from_token", return_value=None) as fake_seller_verify:
-        with pytest.raises(exceptions.InvalidToken):
+        with pytest.raises(exceptions.UnauthorizedSeller):
             create_new_product(product, session, token)
 
 

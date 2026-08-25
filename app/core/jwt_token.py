@@ -21,7 +21,7 @@ def verify_secret_keys():
         raise ValueError("Algorithm not FOund!")
 
 ## this function create a token.
-def create_token(user_data: dict, time_expiry: timedelta = timedelta(minutes=1)):
+def create_token(user_data: dict, time_expiry: timedelta = timedelta(minutes=60)):
     verify_secret_keys()
     payload = user_data.copy()
     payload["exp"] = datetime.now(timezone.utc) + time_expiry
