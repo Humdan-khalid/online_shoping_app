@@ -48,3 +48,6 @@ class SellerProductNotFound(Exception):
 
 class TokenExpired(Exception):
     pass
+
+class ProductAlreadyInactivate(Exception):
+    pass

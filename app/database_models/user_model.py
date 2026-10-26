@@ -17,7 +17,7 @@ class CreateUser(BaseModel):
     name: str = PydanticField(pattern=r"^[A-Za-z]+(?: [A-Za-z]+)*$")
     age: int = Field(ge=10, le=101)
     phone_number: str = PydanticField(pattern=r"^03[0-9]{9}$")
-    city: str = PydanticField(pattern=r"^[a-zA-Z]+$")
+    city: str = PydanticField(pattern=r"^[A-Za-z]+(?: [A-Za-z]+)*$",)
     email: EmailStr = PydanticField(pattern=r"^[a-z][a-z0-9]+@gmail\.com$")
     password: str = Field(min_length=8 , max_length=25)
 

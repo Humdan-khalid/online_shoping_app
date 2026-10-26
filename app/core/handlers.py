@@ -21,5 +21,11 @@ def database_error_handler(request, exc):
 def product_not_found_error_handler(request, exc):
     return JSONResponse(
         status_code=404,
-        content={"detail": "Product not found"}
+        content={"detail": "Product not found!"}
+    )
+
+def token_invalid_handler(request, exc):
+    return JSONResponse(
+        status_code=401,
+        content={"detail":"Invalid token!"}
     )

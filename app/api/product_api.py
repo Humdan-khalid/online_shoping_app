@@ -1,4 +1,4 @@
-from app.services.product_service import create_new_product, update_seller_product_attributes, delete_product_in_database, find_seller_products, find_user_search_products, seller_find_product, create_product_order
+from app.services.product_service import create_new_product, update_seller_product_attributes, deactivate_seller_product, find_seller_products, find_user_search_products, seller_find_product, create_product_order
 from sqlmodel import Session
 from fastapi import APIRouter, status, Depends, HTTPException
 from app.database_models.product_model import CreateProduct, ReadProduct, UpdateProduct
@@ -21,13 +21,16 @@ def product_update(product_id: int, product: UpdateProduct, seller: dict=Depends
     except exceptions.SellerProductNotFound:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Product not found!")
 
-@router.delete("/product-delete", status_code=status.HTTP_200_OK)
+@router.delete("/product", status_code=status.HTTP_200_OK)
 def product_delete(product_id: int, seller: dict=Depends(get_user_token), session: Session=Depends(get_session)):
-    return delete_product_in_database(product_id, seller['id'], session)
-
+    try:
+        return deactivate_seller_product(product_id, seller, session)
+    except exceptions.ProductAlreadyInactivate:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product already deleted!")
+    
 @router.get("/seller-products", status_code=status.HTTP_200_OK)
 def get_products(seller: dict = Depends(get_user_token), session: Session=Depends(get_session)):
-    return find_seller_products(seller['id'], session)
+    return find_seller_products(seller, session)
 
 @router.get("/search-product", status_code=status.HTTP_200_OK, response_model=list[ReadProduct])
 def search_product(search: str, session: Session=Depends(get_session)):

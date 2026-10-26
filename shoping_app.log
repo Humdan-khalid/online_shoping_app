@@ -1,4 +1,0 @@
-2026-08-25 20:16:32,918 | INFO | root | Product successfully deleted to the Cart and successfully status change in database.
-2026-08-25 20:17:20,296 | INFO | root | Product successfully deleted to the Cart and successfully status change in database.
-2026-08-25 20:17:21,927 | INFO | root | Product successfully deleted to the Cart and successfully status change in database.
-2026-08-25 20:22:49,322 | WARNING | root | Product status already Not Available. Product_id: 78 | seller_id: 30.

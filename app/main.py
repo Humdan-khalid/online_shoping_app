@@ -15,3 +15,4 @@ app.add_exception_handler(exceptions.UnauthorizedSeller, handlers.unauthorized_s
 app.add_exception_handler(exceptions.TokenExpired, handlers.token_expired_handler)
 app.add_exception_handler(DatabaseError, handlers.database_error_handler)
 app.add_exception_handler(exceptions.ProductNotFound, handlers.product_not_found_error_handler)
+app.add_exception_handler(exceptions.InvalidToken, handlers.token_invalid_handler)

@@ -6,7 +6,6 @@ from app.core.log_config import logger
 from sqlalchemy.exc import DatabaseError
 from app.utils.password_hash import create_hash_password, verify_password
 from app.core.jwt_token import create_token
-import logging
 
 def create_user_account(user: CreateUser, session: Session):
     try:
@@ -14,7 +13,7 @@ def create_user_account(user: CreateUser, session: Session):
 
         if user_exist:
             logger.warning(f"User account already exists at this email | {user.email}")
-            raise exceptions.UserAlreadyExist("Account already exists at email!")
+            raise exceptions.UserAlreadyExist("Account already exists at your email!")
     
         new_user = Users(
             name=user.name,
@@ -27,11 +26,11 @@ def create_user_account(user: CreateUser, session: Session):
         
         new_user_save_in_database(new_user, session)
         
-        logger.info(f"new user account created with this email | {user.email}")
+        logger.info(f"Successfully new user account created with this email | {user.email}")
         return new_user
 
     except DatabaseError:
-        logging.exception(f"Database Error! while user creating the new account")
+        logger.exception(f"Database Error! while user creating the new account")
         raise
 
 
@@ -47,7 +46,7 @@ def login_user_by_email(user: LoginUser, session: Session):
     
         if not db_password:
             logger.warning(f"User login failed with wrong password | {user.password}")
-            raise exceptions.InvalidCredentials("User password not found!")
+            raise exceptions.InvalidCredentials("User password incorrect!")
         
         token = create_token(
             {
@@ -62,5 +61,5 @@ def login_user_by_email(user: LoginUser, session: Session):
         }
 
     except DatabaseError:
-        logging.exception(f"Database error while login the user account")
+        logger.exception(f"Database error while login the user account")
         raise

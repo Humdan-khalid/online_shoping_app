@@ -41,3 +41,4 @@ def get_seller_from_token(seller: dict, session: Session):
         ).first()
 
     return db_seller
+

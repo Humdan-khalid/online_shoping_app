@@ -14,7 +14,7 @@ def create_user_new_account(user: CreateUser, session: Session = Depends(get_ses
         return create_user_account(user, session)
 
     except exceptions.UserAlreadyExist:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Account already exist at your email")
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="An account with this email already exists.")
     
     except DatabaseError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")

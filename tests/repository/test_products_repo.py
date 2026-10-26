@@ -1,6 +1,8 @@
-from app.repository.product_repo import find_seller_product_in_database, find_product_in_database
+from app.repository.product_repo import find_seller_product_in_database, find_product_in_database, find_carts_in_database
 from app.database_models.product_model import Products
 from app.database_models.seller_model import Sellers
+from app.database_models.cart_model import Cart
+from app.database_models.user_model import Users
 
 # def test_find_seller_products_returns_empty_list_when_no_products(db_session):
 #     seller_id = 2
@@ -104,3 +106,68 @@ def test_seller_products_not_found_in_database(db_session):
     result = find_seller_product_in_database(2, 2, db_session)
 
     assert result == None
+
+def test_find_cart_products_sucessfully(db_session):
+    user = Users(
+        id=5,
+        name="Hamdan Jibran",
+        age=21,
+        phone_number="03123049595",
+        city="Karchi",
+        email="hamdan1121@gmail.com",
+        password="HdgDGdg1233"
+    )
+
+    db_session.add(user)
+    db_session.commit()
+    db_session.refresh(user)
+
+    seller = Sellers(
+        id=8,
+        name="Hamdan",
+        age=22,
+        phone_number="03127273747",
+        city="Islamabad",
+        email="hamdan23@gmail.com",
+        password="Hello1245$!"
+        )
+       
+    db_session.add(seller)
+    db_session.commit()
+    db_session.refresh(seller)
+
+    product = Products(
+        id=2,
+        name="Charging-lead",
+        price=150,
+        weight="12gm",
+        colour="White",
+        brand="Apple",
+        description="This product is very good.",
+        quantity=45,
+        seller_id=8,
+        status="Available"
+    )
+
+    db_session.add(product)
+    db_session.commit()
+    db_session.refresh(product)
+
+    cart = Cart(
+        id=1,
+        product_name="biscuits",
+        product_id=2,
+        customer_id=5,
+        seller_id=8,
+        quantity=2
+    )
+
+    db_session.add(cart)
+    db_session.commit()
+    db_session.refresh(cart)
+
+    result = find_carts_in_database(2, db_session)
+
+    assert result == [cart]
+
+

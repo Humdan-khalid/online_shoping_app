@@ -1,6 +1,6 @@
 from app.database_models.product_model import CreateProduct, Products
 from sqlmodel import Session, select
-from app.database_models.seller_model import Sellers
+from app.database_models.cart_model import Cart
 
 def product_save_in_database(product: CreateProduct, session: Session):
     session.add(product)
@@ -61,3 +61,11 @@ def find_product_with_id(product_id: int, session: Session):
     ).first()
 
     return db_product
+
+def find_carts_in_database(product_id: int, session: Session):
+    db_cart = session.exec(
+        select(Cart).where(
+        Cart.product_id == product_id)
+        ).all()
+
+    return db_cart

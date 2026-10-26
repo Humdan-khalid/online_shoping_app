@@ -146,7 +146,7 @@ def test_product_update_but_product_not_found(client):
 
         assert seller.status_code == 404
         assert seller.json() == {
-            "detail" : "Product not found"
+            "detail" : "Product not found!"
         }
 
 def test_product_update_but_seller_product_not_found(client):
@@ -188,4 +188,73 @@ def test_product_update_but_database_error(client):
         assert seller.status_code == 500
         assert seller.json() == {
             "detail" : "Internal Server error!"
+        }
+
+def test_deactivate_product_but_seller_not_exist(client):
+    with patch(
+        "app.api.product_api.deactivate_seller_product",
+        side_effect=exceptions.UnauthorizedSeller("Unauthorized Seller!")
+    ):
+
+        seller = client.delete(
+            "/product?product_id=77"
+        )
+
+        assert seller.status_code == 401
+
+def test_deactivate_product_but_product_not_found(client):
+    with patch(
+        "app.api.product_api.deactivate_seller_product",
+        side_effect=exceptions.ProductNotFound("Product not found!")
+    ):
+        result = client.delete(
+            "/product?product_id=55"
+        )
+
+        assert result.status_code == 404
+
+def test_product_already_inactivated(client):
+    with patch(
+        "app.api.product_api.deactivate_seller_product",
+        side_effect=exceptions.ProductAlreadyInactivate("Product already deleted!")
+    ):
+        result = client.delete(
+            "/product?product_id=76"
+        )
+
+        assert result.status_code == 404
+        assert result.json() == {"detail":"Product already deleted!"}
+
+def test_deactivate_product_but_database_error(client):
+    with patch(
+        "app.api.product_api.deactivate_seller_product",
+        side_effect=DatabaseError(
+            statement="Product deactivate where product id is equal to 76.",
+            params={},
+            orig="Internal Server error!"
+        )
+    ):
+        result = client.delete(
+            "/product?product_id=76"
+        )
+
+        assert result.status_code == 500
+        assert result.json() == {
+            "detail": "Internal Server error!"
+        }
+
+
+def test_deactivate_product_successfully(client):
+    with patch(
+        "app.api.product_api.deactivate_seller_product",
+        return_value = {"message": "Product successfully deleted."}
+        ):
+
+        result = client.delete(
+            "/product?product_id=76"
+        )
+
+        assert result.status_code == 200
+        assert result.json() == {
+            "message": "Product successfully deleted."
         }

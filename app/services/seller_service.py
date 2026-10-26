@@ -13,8 +13,8 @@ def create_new_seller_account(seller: CreateSeller, session: Session):
         db_seller = find_seller_to_email(seller, session)
 
         if db_seller:
-            logging.warning(f"Seller account already exist at email. | {seller.email}")
-            raise exceptions.InvalidCredentials("Seller account already exist at email.")
+            logging.warning(f"Seller account already exists at this email. | {seller.email}")
+            raise exceptions.SellerAlreadyExist("Seller account already exist at email.")
 
         new_seller = Sellers(
             name=seller.name,
@@ -31,7 +31,7 @@ def create_new_seller_account(seller: CreateSeller, session: Session):
     except DatabaseError:
         logging.exception("Database Error!")
         raise 
-
+  
 
 def seller_account_login(seller: SellerLogin, session: Session):
     try:
