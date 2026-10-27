@@ -8,13 +8,13 @@ from sqlalchemy.exc import DatabaseError
 
 router = APIRouter()
 
-@router.post("/seller-account", status_code=status.HTTP_201_CREATED, response_model=ReadSeller)
-def seller_account(seller: CreateSeller, session: Session = Depends(get_session)):
+@router.post("/sellers", status_code=status.HTTP_201_CREATED, response_model=ReadSeller)
+def create_seller_account(seller: CreateSeller, session: Session = Depends(get_session)):
     try:
         return create_new_seller_account(seller, session)
 
     except exceptions.SellerAlreadyExist:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Seller already exist at email!")
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="An Seller account already exists at your email!")
 
     except DatabaseError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")

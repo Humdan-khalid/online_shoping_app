@@ -1,4 +1,4 @@
-from app.services.product_service import create_new_product, update_seller_product_attributes, deactivate_seller_product, find_seller_products, find_user_search_products, seller_find_product, create_product_order
+from app.services.product_service import create_new_product, update_product_attributes, deactivate_seller_product, find_seller_products, find_user_search_products, seller_find_product, create_product_order
 from sqlmodel import Session
 from fastapi import APIRouter, status, Depends, HTTPException
 from app.database_models.product_model import CreateProduct, ReadProduct, UpdateProduct
@@ -9,14 +9,14 @@ from app.database_models.order_model import CreateOrder
 
 router = APIRouter()
 
-@router.post("/products", status_code=status.HTTP_201_CREATED, response_model=ReadProduct)
+@router.post("/product", status_code=status.HTTP_201_CREATED, response_model=ReadProduct)
 def new_product(product: CreateProduct, session: Session=Depends(get_session), token: dict=Depends(get_user_token)):
         return create_new_product(product, session, token)
 
 @router.patch("/product/{product_id}", status_code=status.HTTP_200_OK)
 def product_update(product_id: int, product: UpdateProduct, seller: dict=Depends(get_user_token), session: Session=Depends(get_session)):
     try:
-        return update_seller_product_attributes(product_id, product, seller, session)
+        return update_product_attributes(product_id, product, seller, session)
 
     except exceptions.SellerProductNotFound:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Product not found!")

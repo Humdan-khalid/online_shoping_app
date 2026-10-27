@@ -10,7 +10,7 @@ def find_seller_to_email(seller: CreateSeller, session: Session):
 
     return db_seller
 
-def seller_data_save_in_database(seller: CreateSeller, session: Session):
+def seller_data_save_in_database(seller: Sellers, session: Session):
         session.add(seller)
         session.commit()
         session.refresh(seller)

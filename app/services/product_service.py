@@ -3,7 +3,6 @@ from app.database_models.product_model import CreateProduct, Products, UpdatePro
 from app.core import exceptions
 from app.repository.product_repo import product_save_in_database, find_seller_product_in_database, find_seller_products_in_database, get_products, find_seller_product_with_id, find_product_with_id, find_product_in_database, find_carts_in_database
 from sqlalchemy.exc import DatabaseError
-from app.core.log_config import logging
 from app.repository.seller_repo import get_seller_from_token
 from app.repository.user_repo import get_user_by_id
 from app.database_models.order_model import Orders, CreateOrder
@@ -16,7 +15,7 @@ def create_new_product(product: CreateProduct, session: Session, token: dict):
 
         if not seller:
             logger.warning(f"Unauthorized seller tried for the login, but system rejected the token.")
-            raise exceptions.UnauthorizedSeller("Invalid seller token.")
+            raise exceptions.UnauthorizedSeller("Unauthorized seller token.")
 
         new_product = Products(
             name=product.name,
@@ -33,31 +32,31 @@ def create_new_product(product: CreateProduct, session: Session, token: dict):
         return new_product
 
     except DatabaseError:
-        logging.exception("Database error while created the new product.")
+        logger.exception("Database error while created the new product.")
         raise
 
-def update_seller_product_attributes(product_id: int,  product_update: UpdateProduct, seller: dict, session: Session):
+def update_product_attributes(product_id: int,  product_update: UpdateProduct, seller: dict, session: Session):
     try:
         db_seller = get_seller_from_token(seller, session)
 
         if not db_seller:
-            logging.warning(f"Unauthorized seller tried to update the product, but system rejected the token. | seller_id: {seller['id']} | seller_email: {seller['email']}.")
+            logger.warning(f"Unauthorized seller tried to update the product, but system rejected the token. | seller_id: {seller['id']}.")
             raise exceptions.UnauthorizedSeller("Unauthorized seller tried to update the product, but system rejected the token.")
 
         db_product = find_product_in_database(product_id, session)
 
         if not db_product:
-            logging.info(f"Seller product not found in the database! | Product_id: {product_id}")
+            logger.info(f"Seller product not found in the database! | Product_id: {product_id}")
             raise exceptions.ProductNotFound("Product not found in database!")
 
         seller_product = find_seller_product_in_database(product_id, seller['id'], session)
 
         if not seller_product:
-            logging.warning(f"Seller attempted to update a product that does not belong to them. | Product_id: {product_id} | seller_id: {db_seller.id}")
+            logger.warning(f"Seller attempted to update a product that does not belong to them. | Product_id: {product_id} | seller_id: {seller_product.id}")
             raise exceptions.SellerProductNotFound("Product not found!")
 
         if seller_product.status == "Not Available":
-            logging.warning("Seller attempted to update a product but product is NotAvailable.")
+            logger.warning("Seller attempted to update a product but product status is NotAvailable.")
             raise exceptions.SellerProductNotFound("Product not found!")
 
         product_convert_dict = product_update.model_dump(exclude_none= True)
@@ -68,12 +67,12 @@ def update_seller_product_attributes(product_id: int,  product_update: UpdatePro
         session.add(seller_product)
         session.commit()
 
-        delete_seller_products_in_cache(db_seller.id)
+        delete_seller_products_in_cache(seller_product.id)
 
         return{"Message" : "Product successfully updated"}
 
     except DatabaseError:
-        logging.exception("Database error while seller update the product data.")
+        logger.exception("Database error while seller update the product data.")
         raise 
 
 def deactivate_seller_product(product_id: int, seller: dict, session: Session):
@@ -81,26 +80,26 @@ def deactivate_seller_product(product_id: int, seller: dict, session: Session):
         db_seller = get_seller_from_token(seller, session)
 
         if not db_seller:
-            logging.warning(f"Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller['id']} | product_id: {product_id}")
+            logger.warning(f"Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller['id']} | product_id: {product_id}")
             raise exceptions.SellerNotExist(f"Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller['id']}")
 
         db_product = find_product_in_database(product_id, session)
 
         if not db_product:
-            logging.warning(f"Seller find the product for deleting product but product not found | product_id: {product_id} | seller_id: {seller['id']}")
+            logger.warning(f"Seller find the product for deleting product but product not found | product_id: {product_id} | seller_id: {seller['id']}")
             raise exceptions.ProductNotFound("Product not found!")
 
         db_seller_product = find_seller_product_in_database(product_id, seller['id'], session)
 
         if not db_seller_product:
-            logging.warning(
+            logger.warning(
                 f"Seller attempted to delete another seller's product, "
                 f"but the system rejected the request | seller_id: {seller['id']} | " 
                 f"product_id: {product_id}")
             raise exceptions.ProductNotFound("Product not found!") 
 
         if db_seller_product.status == "Not Available":
-            logging.warning(f"Product status already Not Available. Product_id: {product_id} | seller_id: {seller['id']}.")
+            logger.warning(f"Product status already Not Available. Product_id: {product_id} | seller_id: {seller['id']}.")
             raise exceptions.ProductAlreadyInactivate("Product already deleted!")                                                                                                                                                                      
 
         db_cart = find_carts_in_database(product_id, session)
@@ -108,15 +107,17 @@ def deactivate_seller_product(product_id: int, seller: dict, session: Session):
         for cart in db_cart:
             session.delete(cart)
 
-        db_product.status = "Not Available"
+        db_seller_product.status = "Not Available"
+
+        delete_seller_products_in_cache()
 
         session.commit()
 
-        logging.info("Product successfully deleted to the Cart and successfully status change in database.")
+        logger.info("Product successfully deleted to the Cart and successfully status change in database.")
         return{"message": "Product successfully deleted."}
 
     except DatabaseError:
-        logging.exception("Database Error! While seller was tried to delete the product.")
+        logger.exception("Database Error! While seller was tried to delete the product.")
         raise
 
 
@@ -125,7 +126,7 @@ def find_seller_products(seller: dict, session: Session):
         db_seller = get_seller_from_token(seller, session)
 
         if not db_seller:
-            logging.warning(f"Unauthorized seller tried to get the products, but system rejected the fake token. | seller_id: {seller['id']}")
+            logger.warning(f"Unauthorized seller tried to get the products, but system rejected the fake token. | seller_id: {seller['id']}")
             raise exceptions.SellerNotExist(f"Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller['id']}")
 
         cache_data = get_seller_products_in_cache(seller['id'])

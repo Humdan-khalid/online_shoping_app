@@ -2,7 +2,7 @@ from app.database_models.product_model import CreateProduct, Products
 from sqlmodel import Session, select
 from app.database_models.cart_model import Cart
 
-def product_save_in_database(product: CreateProduct, session: Session):
+def product_save_in_database(product: Products, session: Session):
     session.add(product)
     session.commit()
     session.refresh(product)
