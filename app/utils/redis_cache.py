@@ -39,5 +39,7 @@ def delete_seller_products_in_cache(seller_id: int):
     key = f"seller:{seller_id}"
     return r.delete(key)
 
+def delete_seller_product_in_cache(product_id: int):
+    key = f"product_id:{product_id}"
+    return r.delete(key)
 
-    

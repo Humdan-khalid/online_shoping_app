@@ -6,7 +6,7 @@ from sqlalchemy.exc import DatabaseError
 from app.repository.seller_repo import get_seller_from_token
 from app.repository.user_repo import get_user_by_id
 from app.database_models.order_model import Orders, CreateOrder
-from app.utils.redis_cache import get_seller_products_in_cache, store_seller_products_in_cache, delete_seller_products_in_cache
+from app.utils.redis_cache import get_seller_products_in_cache, store_seller_products_in_cache, delete_seller_products_in_cache, delete_seller_product_in_cache
 from app.core.log_config import logger
 
 def create_new_product(product: CreateProduct, session: Session, token: dict):
@@ -52,7 +52,7 @@ def update_product_attributes(product_id: int,  product_update: UpdateProduct, s
         seller_product = find_seller_product_in_database(product_id, seller['id'], session)
 
         if not seller_product:
-            logger.warning(f"Seller attempted to update a product that does not belong to them. | Product_id: {product_id} | seller_id: {seller_product.id}")
+            logger.warning(f"Seller attempted to update a product that does not belong to them. | Product_id: {product_id} | seller_id: {seller['id']}")
             raise exceptions.SellerProductNotFound("Product not found!")
 
         if seller_product.status == "Not Available":
@@ -67,7 +67,7 @@ def update_product_attributes(product_id: int,  product_update: UpdateProduct, s
         session.add(seller_product)
         session.commit()
 
-        delete_seller_products_in_cache(seller_product.id)
+        delete_seller_products_in_cache(seller['id'])
 
         return{"Message" : "Product successfully updated"}
 
@@ -81,7 +81,7 @@ def deactivate_seller_product(product_id: int, seller: dict, session: Session):
 
         if not db_seller:
             logger.warning(f"Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller['id']} | product_id: {product_id}")
-            raise exceptions.SellerNotExist(f"Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller['id']}")
+            raise exceptions.UnauthorizedSeller(f"Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller['id']}")
 
         db_product = find_product_in_database(product_id, session)
 
@@ -100,7 +100,7 @@ def deactivate_seller_product(product_id: int, seller: dict, session: Session):
 
         if db_seller_product.status == "Not Available":
             logger.warning(f"Product status already Not Available. Product_id: {product_id} | seller_id: {seller['id']}.")
-            raise exceptions.ProductAlreadyInactivate("Product already deleted!")                                                                                                                                                                      
+            raise exceptions.ProductAlreadyDeactivate("Product already deleted!")                                                                                                                                                                      
 
         db_cart = find_carts_in_database(product_id, session)
         
@@ -109,7 +109,7 @@ def deactivate_seller_product(product_id: int, seller: dict, session: Session):
 
         db_seller_product.status = "Not Available"
 
-        delete_seller_products_in_cache()
+        delete_seller_products_in_cache(seller['id'])
 
         session.commit()
 
@@ -138,7 +138,7 @@ def find_seller_products(seller: dict, session: Session):
         db_products = find_seller_products_in_database(seller["id"], session)
 
         if not db_products:
-            logging.warning(f"Seller did not find the products | Seller: {seller['id']}")
+            logger.warning(f"Seller did not find the products | Seller: {seller['id']}")
             raise exceptions.ProductNotFound("Product not found!")
 
         store_seller_products_in_cache(seller['id'], db_products)
@@ -149,7 +149,7 @@ def find_seller_products(seller: dict, session: Session):
         }
 
     except DatabaseError:
-        logging.exception("Database Error! While seller was fetching the products to the database.")
+        logger.exception("Database Error! While seller was fetching the products to the database.")
         raise exceptions.DatabaseError("Database Error!")
 
 def find_user_search_products(search: str, session: Session):
@@ -157,26 +157,26 @@ def find_user_search_products(search: str, session: Session):
         products = get_products(search, session)
 
         if not products:
-            logging.warning("Products not found While user searched the products.")
+            logger.warning("Products not found While user searched the products.")
             raise exceptions.ProductNotFound("Products not found!")
 
         return products
 
     except DatabaseError:
-        logging.exception("Database Error! While user search the products.")
+        logger.exception("Database Error! While user search the products.")
         raise
 
 def seller_find_product(product_id:int , seller_id: int, session: Session):
     seller = get_seller_from_token(seller_id, session)
 
     if not seller:
-        logging.warning("Unauthorized seller tried to find the product but system rejected the fake token!")
+        logger.warning("Unauthorized seller tried to find the product but system rejected the fake token!")
         raise exceptions.SellerNotExist("Unauthorized seller tried to find the product!")
 
     product = find_seller_product_with_id(product_id, seller['id'], session)
 
     if not product:
-        logging.warning(f"Seller try to find the product but Product not found | product_id:{product_id}")
+        logger.warning(f"Seller try to find the product but Product not found | product_id:{product_id}")
         raise exceptions.ProductNotFound("Product not found")
 
     return product
@@ -196,16 +196,16 @@ def create_product_order(product_id: int, create_order: CreateOrder,  user: int,
             raise exceptions.ProductNotFound("Product not found!")
 
         if db_product.quantity <= 0:
-            logging.warning(f"User give the invalid product quantity! | product_id: {product_id} | user: {user} | quantity: {create_order.quantity}")
+            logger.warning(f"User give the invalid product quantity! | product_id: {product_id} | user: {user} | quantity: {create_order.quantity}")
             raise exceptions.StockFinished("Product is Out of stock!")
 
         
         if create_order.quantity > db_product.quantity:
-            logging.warning(f"User give the product quantity very high to the available stock | product_id: {product_id} | user: {user} | quantity: {create_order.quantity} | Available stock: {db_product.quantity}")
+            logger.warning(f"User give the product quantity very high to the available stock | product_id: {product_id} | user: {user} | quantity: {create_order.quantity} | Available stock: {db_product.quantity}")
             raise exceptions.QuantityOrderError("Quantity Error!")
 
         if create_order.quantity <= 0:
-            logging.warning(f"User give the invalid product quantity {create_order.quantity}. | user_id: {db_user.id} | product_id: {db_product.id}")
+            logger.warning(f"User give the invalid product quantity {create_order.quantity}. | user_id: {db_user.id} | product_id: {db_product.id}")
             raise exceptions.InvalidQuantity("Invalid quantity")
 
         amount = db_product.price * create_order.quantity
@@ -227,11 +227,11 @@ def create_product_order(product_id: int, create_order: CreateOrder,  user: int,
         session.commit()
         session.refresh(order)
 
-        logging.info(f"User successfully order created. | user_id: {db_user.id} | product_id: {db_product.id}.")
+        logger.info(f"User successfully order created. | user_id: {db_user.id} | product_id: {db_product.id}.")
         return{"message": "Order submit successfully"}
 
     except DatabaseError:
-        logging.exception(f"Database Error! While user created the order. | user_id: {db_user.id} | product_id: {db_product.id}")
+        logger.exception(f"Database Error! While user created the order. | user_id: {db_user.id} | product_id: {db_product.id}")
         raise
 
 

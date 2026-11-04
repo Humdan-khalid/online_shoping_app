@@ -10,7 +10,7 @@ def get_admin_in_database_by_email(admin: CreateAdmin, session: Session):
 def admin_data_save_in_database(admin: CreateAdmin,session: Session):
     session.add(admin)
     session.commit()
-    session.re
+    session.refresh(admin)
 
 def admin_login_by_email(admin: AdminLogin, session: Session):
     db_admin = session.exec(

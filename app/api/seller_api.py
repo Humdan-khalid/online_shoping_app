@@ -25,8 +25,8 @@ def seller_login(seller: SellerLogin, session: Session=Depends(get_session)):
     try:
         return seller_account_login(seller, session)
 
-    except exceptions.SellerNotExist:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid email or password!")
+    except exceptions.InvalidCredentials:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Invalid email or password!")
 
     except DatabaseError as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!") 

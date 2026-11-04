@@ -51,3 +51,6 @@ class TokenExpired(Exception):
 
 class ProductAlreadyInactivate(Exception):
     pass
+
+class ProductAlreadyDeactivate(Exception):
+    pass

@@ -1,2 +1,18 @@
 2026-10-27 09:01:49,534 | WARNING | app.core.jwt_token | Invalid token!
 2026-10-27 20:47:11,013 | INFO | app.core.log_config | Seller product not found in the database! | Product_id: 89
+2026-10-29 22:43:04,771 | WARNING | app.core.log_config | Seller attempted to update a product that does not belong to them. | Product_id: 80 | seller_id: 30
+2026-11-01 10:23:58,761 | WARNING | app.core.log_config | Seller gave the invalid email for login. | Invalid_email: hshaj@gmail.com
+2026-11-01 10:26:10,288 | WARNING | app.core.log_config | Seller gave the invalid email for login. | Invalid_email: hshaj@gmail.com
+2026-11-01 11:03:50,512 | INFO | app.core.log_config | User successfully login | user_id: 39.
+2026-11-01 11:16:14,211 | WARNING | app.core.log_config | Seller gave the invalid email for login. | Invalid_email: hshaj@gmail.com
+2026-11-01 11:17:47,298 | WARNING | app.core.log_config | Unauthorized user tried to create the order with fake token. | user_id: 30
+2026-11-01 11:24:23,204 | WARNING | app.core.jwt_token | Invalid token!
+2026-11-01 11:28:13,213 | INFO | app.core.log_config | User successfully login | user_id: 39.
+2026-11-01 11:29:00,257 | INFO | app.core.log_config | User successfully order created. | user_id: 39 | product_id: 80.
+2026-11-01 11:34:11,325 | WARNING | app.core.jwt_token | Invalid token!
+2026-11-01 12:38:35,369 | WARNING | app.core.jwt_token | Token has expired!
+2026-11-01 12:38:50,248 | INFO | app.core.log_config | User successfully login | user_id: 39.
+2026-11-01 12:43:22,489 | INFO | app.core.log_config | User successfully order created. | user_id: 39 | product_id: 80.
+2026-11-01 12:44:18,143 | WARNING | app.core.log_config | Unauthorized user tried to create the order with fake token. | user_id: 30
+2026-11-01 12:53:42,051 | WARNING | app.core.log_config | Unauthorized user tried to create the order with fake token. | user_id: 30
+2026-11-01 15:57:39,483 | INFO | app.core.log_config | User successfully login | user_id: 39.
