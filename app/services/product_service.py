@@ -8,6 +8,7 @@ from app.repository.user_repo import get_user_by_id
 from app.database_models.order_model import Orders, CreateOrder
 from app.utils.redis_cache import get_seller_products_in_cache, store_seller_products_in_cache, delete_seller_products_in_cache, delete_seller_product_in_cache
 from app.core.log_config import logger
+from sqlalchemy.exc import SQLAlchemyError
 
 def create_new_product(product: CreateProduct, session: Session, token: dict):
     try:
@@ -31,9 +32,13 @@ def create_new_product(product: CreateProduct, session: Session, token: dict):
         product_save_in_database(new_product, session)
         return new_product
 
-    except DatabaseError:
+    except SQLAlchemyError as error:
         logger.exception("Database error while created the new product.")
-        raise
+        session.rollback()
+
+        raise exceptions.DatabaseError(
+            "Database Error!"
+        ) from error
 
 def update_product_attributes(product_id: int,  product_update: UpdateProduct, seller: dict, session: Session):
     try:

@@ -6,7 +6,7 @@ class Sellers(SQLModel, table=True):
     id: int = Field(default=None, primary_key=True)
     name: str = Field(nullable=False)
     age: int = Field(nullable=False)
-    phone_number: str = Field(nullable=False)
+    phone_number: str = Field(nullable=False, unique=True)
     city: str = Field(nullable=False)
     account_type: str = Field(nullable=False, default="Seller")
     email: EmailStr = Field(nullable=False, unique=True, index=True)

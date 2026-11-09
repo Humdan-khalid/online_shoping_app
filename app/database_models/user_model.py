@@ -7,7 +7,7 @@ class Users(SQLModel, table = True):
     id: int = Field(default=None, primary_key=True)
     name: str = Field(nullable=False)
     age: int = Field(nullable=False)
-    phone_number: str = Field(nullable=False)
+    phone_number: str = Field(nullable=False, unique=True)
     city: str = Field(nullable=False)
     email: EmailStr = Field(index=True, unique=True, nullable=False)
     password: str = Field(nullable=False)

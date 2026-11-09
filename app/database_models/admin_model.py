@@ -7,7 +7,7 @@ class Admin(SQLModel, table=True):
     name: str = Field(nullable=False)
     age: int = Field(nullable=False)
     city: str = Field(nullable=False)
-    phone_number: str = Field(nullable=False)
+    phone_number: str = Field(nullable=False, unique=True)
     email: EmailStr = Field(nullable=False)
     password: str = Field(nullable = False)
     created_at: datetime = Field(default_factory=datetime.utcnow)

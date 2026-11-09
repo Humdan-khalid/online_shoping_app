@@ -4,7 +4,7 @@ from sqlmodel import Session
 from app.database_config.database_connection import get_session
 from app.services.seller_service import create_new_seller_account, seller_account_login
 from app.core import exceptions
-from sqlalchemy.exc import DatabaseError
+from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 router = APIRouter()
 
@@ -16,9 +16,12 @@ def create_seller_account(seller: CreateSeller, session: Session = Depends(get_s
     except exceptions.SellerAlreadyExist:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="An Seller account already exists at your email!")
 
-    except DatabaseError:
-        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
+    
+    except exceptions.DuplicateSellerData:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Phone number or email already exists!")
 
+    except exceptions.DatabaseError:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")
 
 @router.post("/seller-login", status_code=status.HTTP_200_OK)
 def seller_login(seller: SellerLogin, session: Session=Depends(get_session)):
@@ -28,5 +31,5 @@ def seller_login(seller: SellerLogin, session: Session=Depends(get_session)):
     except exceptions.InvalidCredentials:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Invalid email or password!")
 
-    except DatabaseError as e:
+    except exceptions.DatabaseError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!") 

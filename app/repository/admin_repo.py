@@ -1,9 +1,9 @@
 from app.database_models.admin_model import Admin, CreateAdmin, AdminLogin
 from sqlmodel import Session, select
 
-def get_admin_in_database_by_email(admin: CreateAdmin, session: Session):
+def get_admin_in_database_by_email(email: str, session: Session):
     db_admin = session.exec(select(Admin).
-                           where(Admin.email == admin.email)).first()
+                           where(Admin.email == email)).first()
 
     return db_admin
 
@@ -12,10 +12,10 @@ def admin_data_save_in_database(admin: CreateAdmin,session: Session):
     session.commit()
     session.refresh(admin)
 
-def admin_login_by_email(admin: AdminLogin, session: Session):
+def find_admin_by_email(email: str, session: Session):
     db_admin = session.exec(
         select(Admin).where
-            (Admin.email == admin.email
+            (Admin.email == email
         )
     ).first()
 

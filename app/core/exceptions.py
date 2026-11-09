@@ -54,3 +54,12 @@ class ProductAlreadyInactivate(Exception):
 
 class ProductAlreadyDeactivate(Exception):
     pass
+
+class DuplicateSellerData(Exception):
+    pass
+
+class DuplicateUserData(Exception):
+    pass
+
+class DuplicateAdminData(Exception):
+    pass

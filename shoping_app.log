@@ -1,18 +1,155 @@
-2026-10-27 09:01:49,534 | WARNING | app.core.jwt_token | Invalid token!
-2026-10-27 20:47:11,013 | INFO | app.core.log_config | Seller product not found in the database! | Product_id: 89
-2026-10-29 22:43:04,771 | WARNING | app.core.log_config | Seller attempted to update a product that does not belong to them. | Product_id: 80 | seller_id: 30
-2026-11-01 10:23:58,761 | WARNING | app.core.log_config | Seller gave the invalid email for login. | Invalid_email: hshaj@gmail.com
-2026-11-01 10:26:10,288 | WARNING | app.core.log_config | Seller gave the invalid email for login. | Invalid_email: hshaj@gmail.com
-2026-11-01 11:03:50,512 | INFO | app.core.log_config | User successfully login | user_id: 39.
-2026-11-01 11:16:14,211 | WARNING | app.core.log_config | Seller gave the invalid email for login. | Invalid_email: hshaj@gmail.com
-2026-11-01 11:17:47,298 | WARNING | app.core.log_config | Unauthorized user tried to create the order with fake token. | user_id: 30
-2026-11-01 11:24:23,204 | WARNING | app.core.jwt_token | Invalid token!
-2026-11-01 11:28:13,213 | INFO | app.core.log_config | User successfully login | user_id: 39.
-2026-11-01 11:29:00,257 | INFO | app.core.log_config | User successfully order created. | user_id: 39 | product_id: 80.
-2026-11-01 11:34:11,325 | WARNING | app.core.jwt_token | Invalid token!
-2026-11-01 12:38:35,369 | WARNING | app.core.jwt_token | Token has expired!
-2026-11-01 12:38:50,248 | INFO | app.core.log_config | User successfully login | user_id: 39.
-2026-11-01 12:43:22,489 | INFO | app.core.log_config | User successfully order created. | user_id: 39 | product_id: 80.
-2026-11-01 12:44:18,143 | WARNING | app.core.log_config | Unauthorized user tried to create the order with fake token. | user_id: 30
-2026-11-01 12:53:42,051 | WARNING | app.core.log_config | Unauthorized user tried to create the order with fake token. | user_id: 30
-2026-11-01 15:57:39,483 | INFO | app.core.log_config | User successfully login | user_id: 39.
+2026-11-09 07:59:17,226 | WARNING | app.core.log_config | Seller creation failed because of duplicate or invalid database data.
+2026-11-09 08:01:28,184 | WARNING | app.core.log_config | Seller creation failed because of duplicate or invalid database data.
+2026-11-09 08:41:29,095 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-09 08:43:19,689 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-09 08:43:45,113 | INFO | app.core.log_config | Successfully new user account created with this email | hamdasqqn@gmail.com
+2026-11-09 08:48:34,750 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "users_phone_number_key"
+DETAIL:  Key (phone_number)=(03172625353) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "users_phone_number_key"
+DETAIL:  Key (phone_number)=(03172625353) already exists.
+
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (%(name)s, %(age)s, %(phone_number)s, %(city)s, %(email)s, %(password)s, %(created_at)s) RETURNING users.id]
+[parameters: {'name': 'Hamdna', 'age': 37, 'phone_number': '03172625353', 'city': 'Melbourne', 'email': 'hamdasqqn@gmail.com', 'password': '$2b$10$jBu6E8zON6F9sg5m.FaGgOCX2SQznWrvnPnjHp4L6OIAmpOX7wNDK', 'created_at': datetime.datetime(2026, 11, 9, 3, 48, 34, 741505)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-09 08:50:03,486 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-09 09:38:41,081 | WARNING | root | Admin account already exist with this email | hamdan@gmail.com
+2026-11-09 09:40:00,405 | WARNING | root | Admin account already exist with this email | hamdan@gmail.com
+2026-11-09 09:43:36,930 | ERROR | root | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UniqueViolation: duplicate key value violates unique constraint "admin_phone_number_key"
+DETAIL:  Key (phone_number)=(03182827273) already exists.
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\admin_service.py", line 28, in create_admin_account
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "admin_phone_number_key"
+DETAIL:  Key (phone_number)=(03182827273) already exists.
+
+[SQL: INSERT INTO admin (name, age, city, phone_number, email, password, created_at) VALUES (%(name)s, %(age)s, %(city)s, %(phone_number)s, %(email)s, %(password)s, %(created_at)s) RETURNING admin.id]
+[parameters: {'name': 'Hamdan Khalid', 'age': 26, 'city': 'New-york', 'phone_number': '03182827273', 'email': 'ham45dan@gmail.com', 'password': '$2b$10$hi1BLcdjB1G/N5JdS63ZrenhHPxshlrKQoDamBzwIOOD2bLl2e8t6', 'created_at': datetime.datetime(2026, 11, 9, 4, 43, 36, 902155)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-09 21:10:17,058 | WARNING | app.core.log_config | Seller gave the invalid password for login. | Invalid_email: Bismillah280
