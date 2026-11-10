@@ -1,4 +1,4 @@
-from app.database_models.product_model import CreateProduct, Products
+from app.database_models.product_model import CreateProduct, Products, UpdateProduct
 from sqlmodel import Session, select
 from app.database_models.cart_model import Cart
 
@@ -69,3 +69,7 @@ def find_carts_in_database(product_id: int, session: Session):
         ).all()
 
     return db_cart
+
+def update_product_attributes_in_database(product: UpdateProduct, session: Session):
+    session.add(product)
+    session.commit()

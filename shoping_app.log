@@ -153,3 +153,7 @@ DETAIL:  Key (phone_number)=(03182827273) already exists.
 [parameters: {'name': 'Hamdan Khalid', 'age': 26, 'city': 'New-york', 'phone_number': '03182827273', 'email': 'ham45dan@gmail.com', 'password': '$2b$10$hi1BLcdjB1G/N5JdS63ZrenhHPxshlrKQoDamBzwIOOD2bLl2e8t6', 'created_at': datetime.datetime(2026, 11, 9, 4, 43, 36, 902155)}]
 (Background on this error at: https://sqlalche.me/e/20/gkpj)
 2026-11-09 21:10:17,058 | WARNING | app.core.log_config | Seller gave the invalid password for login. | Invalid_email: Bismillah280
+2026-11-10 19:31:04,240 | WARNING | app.core.log_config | Seller attempted to update a product that does not belong to them. | Product_id: 79 | seller_id: 31
+2026-11-10 19:57:36,923 | INFO | app.core.log_config | Seller product not found in the database! | Product_id: 15
+2026-11-10 19:58:11,272 | INFO | app.core.log_config | Seller product not found in the database! | Product_id: 15
+2026-11-10 20:00:05,418 | WARNING | app.core.log_config | Seller attempted to update a product that does not belong to them. | Product_id: 81 | seller_id: 31

@@ -1,12 +1,12 @@
 from sqlmodel import Session
 from app.database_models.product_model import CreateProduct, Products, UpdateProduct
 from app.core import exceptions
-from app.repository.product_repo import product_save_in_database, find_seller_product_in_database, find_seller_products_in_database, get_products, find_seller_product_with_id, find_product_with_id, find_product_in_database, find_carts_in_database
+from app.repository.product_repo import product_save_in_database, find_seller_product_in_database, find_seller_products_in_database, get_products, find_seller_product_with_id, find_product_with_id, find_product_in_database, find_carts_in_database, update_product_attributes_in_database
 from sqlalchemy.exc import DatabaseError
 from app.repository.seller_repo import get_seller_from_token
 from app.repository.user_repo import get_user_by_id
 from app.database_models.order_model import Orders, CreateOrder
-from app.utils.redis_cache import get_seller_products_in_cache, store_seller_products_in_cache, delete_seller_products_in_cache, delete_seller_product_in_cache
+from app.utils.redis_cache import get_seller_products_in_cache, store_seller_products_in_cache, delete_seller_products_in_cache
 from app.core.log_config import logger
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -69,16 +69,20 @@ def update_product_attributes(product_id: int,  product_update: UpdateProduct, s
         for key, value in product_convert_dict.items():
             setattr(seller_product, key, value)
 
-        session.add(seller_product)
-        session.commit()
+        update_product_attributes_in_database(seller_product, session)
 
         delete_seller_products_in_cache(seller['id'])
 
         return{"Message" : "Product successfully updated"}
 
-    except DatabaseError:
-        logger.exception("Database error while seller update the product data.")
-        raise 
+    except SQLAlchemyError as error:
+        logger.exception("Database Error! While updated of the product.")
+        session.rollback()
+
+        raise exceptions.DatabaseError(
+            "Database error!"
+        ) from error
+
 
 def deactivate_seller_product(product_id: int, seller: dict, session: Session):
     try:
@@ -105,7 +109,7 @@ def deactivate_seller_product(product_id: int, seller: dict, session: Session):
 
         if db_seller_product.status == "Not Available":
             logger.warning(f"Product status already Not Available. Product_id: {product_id} | seller_id: {seller['id']}.")
-            raise exceptions.ProductAlreadyDeactivate("Product already deleted!")                                                                                                                                                                      
+            raise exceptions.ProductAlreadyDeactivate("Product already deactivated!")                                                                                                                                                                      
 
         db_cart = find_carts_in_database(product_id, session)
         
@@ -121,9 +125,13 @@ def deactivate_seller_product(product_id: int, seller: dict, session: Session):
         logger.info("Product successfully deleted to the Cart and successfully status change in database.")
         return{"message": "Product successfully deleted."}
 
-    except DatabaseError:
-        logger.exception("Database Error! While seller was tried to delete the product.")
-        raise
+    except SQLAlchemyError as error:
+        logger.exception("Database Error! While updated of the product.")
+        session.rollback()
+
+        raise exceptions.DatabaseError(
+            "Database Error!"
+        ) from error
 
 
 def find_seller_products(seller: dict, session: Session):
@@ -131,7 +139,7 @@ def find_seller_products(seller: dict, session: Session):
         db_seller = get_seller_from_token(seller, session)
 
         if not db_seller:
-            logger.warning(f"Unauthorized seller tried to get the products, but system rejected the fake token. | seller_id: {seller['id']}")
+            logger.warning(f"Unauthorized seller tried to get the other seller products, but system rejected the fake token. | seller_id: {seller['id']}")
             raise exceptions.SellerNotExist(f"Unauthorized seller tried to delete the product, but system rejected the fake token. | seller_id: {seller['id']}")
 
         cache_data = get_seller_products_in_cache(seller['id'])
@@ -153,11 +161,15 @@ def find_seller_products(seller: dict, session: Session):
             "products": db_products
         }
 
-    except DatabaseError:
-        logger.exception("Database Error! While seller was fetching the products to the database.")
-        raise exceptions.DatabaseError("Database Error!")
+    except SQLAlchemyError as error:
+        logger.exception("Database Error! While seller get the products.")
+        session.rollback()
 
-def find_user_search_products(search: str, session: Session):
+        raise exceptions.DatabaseError(
+            "Database Error!"
+        ) from error
+
+def user_search_products(search: str, session: Session):
     try:
         products = get_products(search, session)
 
@@ -167,9 +179,13 @@ def find_user_search_products(search: str, session: Session):
 
         return products
 
-    except DatabaseError:
-        logger.exception("Database Error! While user search the products.")
-        raise
+    except SQLAlchemyError as error:
+        logger.exception("Database Error! While user search the product.")
+        session.rollback()
+
+        raise exceptions.DatabaseError(
+            "Database Error!"
+        ) from error 
 
 def seller_find_product(product_id:int , seller_id: int, session: Session):
     seller = get_seller_from_token(seller_id, session)
