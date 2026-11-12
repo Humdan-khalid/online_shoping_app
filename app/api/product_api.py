@@ -1,4 +1,4 @@
-from app.services.product_service import create_new_product, update_product_attributes, deactivate_seller_product, find_seller_products, find_user_search_products, seller_find_product, create_product_order
+from app.services.product_service import create_new_product, update_product_attributes, deactivate_seller_product, find_seller_products, user_search_products, find_seller_product, create_product_order
 from sqlmodel import Session
 from fastapi import APIRouter, status, Depends, HTTPException
 from app.database_models.product_model import CreateProduct, ReadProduct, UpdateProduct
@@ -25,7 +25,7 @@ def update_product(product_id: int, product: UpdateProduct, seller: dict=Depends
 def product_delete(product_id: int, seller: dict=Depends(get_user_token), session: Session=Depends(get_session)):
     try:
         return deactivate_seller_product(product_id, seller, session)
-    except exceptions.ProductAlreadyInactivate:
+    except exceptions.ProductAlreadyDeactivate:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product already deleted!")
     
 @router.get("/seller-products", status_code=status.HTTP_200_OK)
@@ -34,11 +34,11 @@ def get_products(seller: dict = Depends(get_user_token), session: Session=Depend
 
 @router.get("/search-product", status_code=status.HTTP_200_OK, response_model=list[ReadProduct])
 def search_product(search: str, session: Session=Depends(get_session)):
-    return find_user_search_products(search, session)
+    return user_search_products(search, session)
 
 @router.get("/seller_product", status_code=status.HTTP_200_OK)
 def get_seller_product(product_id: int, seller: dict = Depends(get_user_token), session: Session = Depends(get_session)):
-    return seller_find_product(product_id, seller['id'], session)
+    return find_seller_product(product_id, seller['id'], session)
 
 @router.post("/buy-now/{product_id}", status_code=status.HTTP_201_CREATED)
 def buy_now(product_id: int, create_order: CreateOrder, user: dict=Depends(get_user_token), session: Session=Depends(get_session)):
@@ -47,11 +47,11 @@ def buy_now(product_id: int, create_order: CreateOrder, user: dict=Depends(get_u
     except exceptions.UserNotFound:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized User!")
     
-    except exceptions.StockFinished:
+    except exceptions.ProductOutOfStock:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product is out of stock!")
     
     except exceptions.QuantityOrderError:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="You are product quantity too high")
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Your product quantity are too high")
     
     except exceptions.InvalidQuantity:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Invalid Quantity!")

@@ -1,10 +1,10 @@
 from sqlmodel import Session
 from app.core import exceptions
 from app.repository.user_repo import get_user_by_id
-from app.repository.product_repo import find_product_with_id
+from app.repository.product_repo import find_product_with_product_id
 from app.database_models.cart_model import Cart
-from sqlalchemy.exc import DatabaseError
-from app.core.log_config import logging
+from sqlalchemy.exc import SQLAlchemyError
+from app.core.log_config import logger
 
 
 def get_user_for_cart(product_id:int, quantity: int, user_id:int, session: Session):
@@ -12,11 +12,13 @@ def get_user_for_cart(product_id:int, quantity: int, user_id:int, session: Sessi
         user = get_user_by_id(user_id, session)
 
         if not user:
+            logger.warning("User try to added the product in cart but user not found!")
             raise exceptions.UserNotFound("User not found!")
 
-        product = find_product_with_id(product_id, session)
+        product = find_product_with_product_id(product_id, session)
 
         if not product:
+            logger.warning("User try to added the product in cart but product not found!")
             raise exceptions.ProductNotFound("Product not found!")
 
         cart = Cart(
@@ -31,8 +33,12 @@ def get_user_for_cart(product_id:int, quantity: int, user_id:int, session: Sessi
         session.commit()
         session.refresh(cart)
 
+        logger.info("Successfully Product added in cart.")
         return cart
     
-    except DatabaseError:
-        logging.exception("Database Error! while user cart the product.")
-        raise
+    except SQLAlchemyError as error:
+        logger.exception("Database error while user add the product in cart.")
+        session.rollback()
+        raise exceptions.DatabaseError(
+            "Database Error!"
+        ) from error

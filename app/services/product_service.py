@@ -1,14 +1,14 @@
-from sqlmodel import Session
+from sqlmodel import Session, update
 from app.database_models.product_model import CreateProduct, Products, UpdateProduct
 from app.core import exceptions
-from app.repository.product_repo import product_save_in_database, find_seller_product_in_database, find_seller_products_in_database, get_products, find_seller_product_with_id, find_product_with_id, find_product_in_database, find_carts_in_database, update_product_attributes_in_database
-from sqlalchemy.exc import DatabaseError
+from app.repository.product_repo import product_save_in_database, find_seller_product_in_database, find_seller_products_in_database, get_products, find_seller_product_with_id, find_product_with_product_id, find_product_in_database, find_carts_in_database, update_product_attributes_in_database
 from app.repository.seller_repo import get_seller_from_token
 from app.repository.user_repo import get_user_by_id
 from app.database_models.order_model import Orders, CreateOrder
 from app.utils.redis_cache import get_seller_products_in_cache, store_seller_products_in_cache, delete_seller_products_in_cache
 from app.core.log_config import logger
 from sqlalchemy.exc import SQLAlchemyError
+
 
 def create_new_product(product: CreateProduct, session: Session, token: dict):
     try:
@@ -187,21 +187,29 @@ def user_search_products(search: str, session: Session):
             "Database Error!"
         ) from error 
 
-def seller_find_product(product_id:int , seller_id: int, session: Session):
-    seller = get_seller_from_token(seller_id, session)
+def find_seller_product(product_id:int , seller_id: int, session: Session):
+    try:
+        seller = get_seller_from_token(seller_id, session)
 
-    if not seller:
-        logger.warning("Unauthorized seller tried to find the product but system rejected the fake token!")
-        raise exceptions.SellerNotExist("Unauthorized seller tried to find the product!")
+        if not seller:
+            logger.warning("Unauthorized seller tried to find the product but system rejected the fake token!")
+            raise exceptions.SellerNotExist("Unauthorized seller tried to find the product!")
 
-    product = find_seller_product_with_id(product_id, seller['id'], session)
+        product = find_seller_product_with_id(product_id, seller['id'], session)
 
-    if not product:
-        logger.warning(f"Seller try to find the product but Product not found | product_id:{product_id}")
-        raise exceptions.ProductNotFound("Product not found")
+        if not product:
+            logger.warning(f"Seller try to find the product but Product not found | product_id:{product_id}")
+            raise exceptions.ProductNotFound("Product not found")
 
-    return product
+        return product
 
+    except SQLAlchemyError as error:
+        logger.exception("Database Error! While user search the product.")
+        session.rollback()
+
+        raise exceptions.DatabaseError(
+            "Database Error!"
+        ) from error
 
 def create_product_order(product_id: int, create_order: CreateOrder,  user: int, session: Session):
     try:
@@ -211,14 +219,15 @@ def create_product_order(product_id: int, create_order: CreateOrder,  user: int,
             logger.warning(f"Unauthorized user tried to create the order with fake token. | user_id: {user}")
             raise exceptions.UserNotFound("User not found")
 
-        db_product = find_product_with_id(product_id, session)
+        db_product = find_product_with_product_id(product_id, session)
 
         if not db_product:
+            logger.info(f"User try to find the product but product not found! product_id: {product_id}")
             raise exceptions.ProductNotFound("Product not found!")
 
         if db_product.quantity <= 0:
-            logger.warning(f"User give the invalid product quantity! | product_id: {product_id} | user: {user} | quantity: {create_order.quantity}")
-            raise exceptions.StockFinished("Product is Out of stock!")
+            logger.warning(f"User found the product but product is out of stock! | product_id: {product_id} | user: {user}")
+            raise exceptions.ProductOutOfStock("Product is Out of stock!")
 
         
         if create_order.quantity > db_product.quantity:
@@ -228,6 +237,29 @@ def create_product_order(product_id: int, create_order: CreateOrder,  user: int,
         if create_order.quantity <= 0:
             logger.warning(f"User give the invalid product quantity {create_order.quantity}. | user_id: {db_user.id} | product_id: {db_product.id}")
             raise exceptions.InvalidQuantity("Invalid quantity")
+
+                # Atomic stock update
+        stock_update = (
+            update(Products)
+            .where(
+                Products.id == product_id,
+                Products.quantity >= create_order.quantity
+            )
+            .values(
+                quantity=Products.quantity - create_order.quantity
+            )
+        )
+
+        result = session.execute(
+            stock_update.execution_options(
+                synchronize_session=False
+            )
+        )
+
+        if result.rowcount == 0:
+            raise exceptions.QuantityOrderError(
+                "Insufficient stock!"
+            )
 
         amount = db_product.price * create_order.quantity
 
@@ -248,12 +280,16 @@ def create_product_order(product_id: int, create_order: CreateOrder,  user: int,
         session.commit()
         session.refresh(order)
 
-        logger.info(f"User successfully order created. | user_id: {db_user.id} | product_id: {db_product.id}.")
-        return{"message": "Order submit successfully"}
+        logger.info(f"User order successfully  created. | user_id: {db_user.id} | product_id: {db_product.id}.")
+        return{"message": "your order submited successfully"}
 
-    except DatabaseError:
-        logger.exception(f"Database Error! While user created the order. | user_id: {db_user.id} | product_id: {db_product.id}")
-        raise
+    except SQLAlchemyError as error:
+        logger.exception("Database Error! While user create the order.")
+        session.rollback()
+
+        raise exceptions.DatabaseError(
+            "Database Error!"
+        ) from error
 
 
     

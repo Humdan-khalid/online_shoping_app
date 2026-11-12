@@ -37,7 +37,7 @@ class ProductNotFound(Exception):
 class QuantityOrderError(Exception):
     pass
 
-class StockFinished(Exception):
+class ProductOutOfStock(Exception):
     pass
 
 class InvalidQuantity(Exception):

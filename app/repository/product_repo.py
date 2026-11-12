@@ -1,4 +1,4 @@
-from app.database_models.product_model import CreateProduct, Products, UpdateProduct
+from app.database_models.product_model import Products, UpdateProduct
 from sqlmodel import Session, select
 from app.database_models.cart_model import Cart
 
@@ -53,14 +53,12 @@ def find_seller_product_with_id(product_id: int, seller_id: int, session: Sessio
 
     return db_product
 
-def find_product_with_id(product_id: int, session: Session):
-    db_product = session.exec(
+def find_product_with_product_id(product_id: int, session: Session):
+    return session.exec(
         select(Products).where(
             Products.id == product_id
         )
     ).first()
-
-    return db_product
 
 def find_carts_in_database(product_id: int, session: Session):
     db_cart = session.exec(
