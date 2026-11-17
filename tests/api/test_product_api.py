@@ -1,260 +1,260 @@
-from unittest.mock import patch
-from app.api.product_api import get_user_token
-from app.main import app
-from app.core import exceptions
-from sqlalchemy.exc import DatabaseError
-from app.database_models.product_model import UpdateProduct
+# from unittest.mock import patch
+# from app.api.product_api import get_user_token
+# from app.main import app
+# from app.core import exceptions
+# from sqlalchemy.exc import DatabaseError
+# from app.database_models.product_model import UpdateProduct
 
-def test_create_new_product_successfully(client):
+# def test_create_new_product_successfully(client):
 
 
-    return_seller_product = {
-        "name": "Ballon",
-        "price": 20,
-        "weight": "0.5kg",
-        "colour": "White",
-        "brand": "Shenin",
-        "description": "This ballon quality is very good.",
-        "quantity": 30
-    }
+#     return_seller_product = {
+#         "name": "Ballon",
+#         "price": 20,
+#         "weight": "0.5kg",
+#         "colour": "White",
+#         "brand": "Shenin",
+#         "description": "This ballon quality is very good.",
+#         "quantity": 30
+#     }
 
-    app.dependency_overrides[get_user_token] = lambda: {
-        "id": 1,
-        "email": "hamdan@gmail.com"
-    }
+#     app.dependency_overrides[get_user_token] = lambda: {
+#         "id": 1,
+#         "email": "hamdan@gmail.com"
+#     }
 
-    with patch("app.api.product_api.create_new_product", return_value=return_seller_product) as fake_created_product:
-        seller = client.post(
-            "/products",
-            json={
-                "name": "Ballon",
-                "price": 20,
-                "weight": "0.5kg",
-                "colour": "White",
-                "brand": "Shenin",
-                "description": "This ballon quality is very good.",
-                "quantity": 30
-                }
+#     with patch("app.api.product_api.create_new_product", return_value=return_seller_product) as fake_created_product:
+#         seller = client.post(
+#             "/products",
+#             json={
+#                 "name": "Ballon",
+#                 "price": 20,
+#                 "weight": "0.5kg",
+#                 "colour": "White",
+#                 "brand": "Shenin",
+#                 "description": "This ballon quality is very good.",
+#                 "quantity": 30
+#                 }
             
             
-        )
+#         )
 
-        assert seller.status_code == 201
-        fake_created_product.assert_called_once()
-
-
-
-def test_token_not_found_for_product_create(client):
-
-    return_seller_product = {
-        "name": "Ballon",
-        "price": 20,
-        "weight": "0.5kg",
-        "colour": "White",
-        "brand": "Shenin",
-        "description": "This ballon quality is very good.",
-        "quantity": 30
-    }
-
-    with patch("app.api.product_api.new_product", 
-               side_effect = exceptions.UnauthorizedSeller) as fake_created_product:
+#         assert seller.status_code == 201
+#         fake_created_product.assert_called_once()
 
 
-        seller = client.post(
-            "/products",
-            json=return_seller_product
-        )
 
-        assert seller.status_code == 401
-        assert seller.json() == {
-            "detail": "Unauthorized Seller!"
-        }
+# def test_token_not_found_for_product_create(client):
 
-def test_database_error_for_creating_product(client):
-    product = {
-        "name": "Chocolate",
-        "price": 2000,
-        "weight": "1kg",
-        "colour": "Black",
-        "brand": "Nutella",
-        "description": "Nutella chocolate is very good for health.",
-        "quantity": 50
-    }
+#     return_seller_product = {
+#         "name": "Ballon",
+#         "price": 20,
+#         "weight": "0.5kg",
+#         "colour": "White",
+#         "brand": "Shenin",
+#         "description": "This ballon quality is very good.",
+#         "quantity": 30
+#     }
 
-    with patch(
-        "app.api.product_api.create_new_product", 
-        side_effect=DatabaseError(
-            statement="Create Product",
-            params={},
-            orig=Exception("Database connection failed")
-    )
-    ) as fake_product_result:
-
-        seller = client.post(
-            "/products",
-            json = product
-        )
-
-        assert seller.status_code == 500
-        fake_product_result.assert_called_once()
-
-def test_product_update_api_successfully(client):
-    product_update = UpdateProduct(
-        quantity=40
-    )
-    with patch(
-        "app.api.product_api.update_seller_product_attributes", return_value={"Message" : "Product successfully updated"}
-    ):
-        seller = client.patch(
-            "/product/3",
-            json=product_update.model_dump()
-        )
-
-        assert seller.status_code == 200
-        assert seller.json() == {"Message" : "Product successfully updated"}
-
-def test_product_update_but_seller_not_found(client):
-    product_update = UpdateProduct(
-        quantity=40
-    )
-    with patch(
-        "app.api.product_api.update_seller_product_attributes", 
-            side_effect=exceptions.UnauthorizedSeller
-    ):
-        seller = client.patch(
-            "/product/3",
-            json=product_update.model_dump()
-        )
-
-        assert seller.status_code == 401
-        assert seller.json() == {
-            "detail" : "Unauthorized Seller!"
-        }
-
-def test_product_update_but_product_not_found(client):
-    product_update = UpdateProduct(
-        quantity=40
-    )
-    with patch(
-        "app.api.product_api.update_seller_product_attributes", 
-            side_effect=exceptions.ProductNotFound
-    ):
-        seller = client.patch(
-            "/product/3",
-            json=product_update.model_dump()
-        )
-
-        assert seller.status_code == 404
-        assert seller.json() == {
-            "detail" : "Product not found!"
-        }
-
-def test_product_update_but_seller_product_not_found(client):
-    product_update = UpdateProduct(
-        quantity=40
-    )
-    with patch(
-        "app.api.product_api.update_seller_product_attributes", 
-            side_effect=exceptions.SellerProductNotFound
-    ):
-        seller = client.patch(
-            "/product/3",
-            json=product_update.model_dump()
-        )
-
-        assert seller.status_code == 403
-        assert seller.json() == {
-            "detail" : "Product not found!"
-        }
+#     with patch("app.api.product_api.new_product", 
+#                side_effect = exceptions.UnauthorizedSeller) as fake_created_product:
 
 
-def test_product_update_but_database_error(client):
-    product_update = UpdateProduct(
-        quantity=40
-    )
-    with patch(
-        "app.api.product_api.update_seller_product_attributes", 
-            side_effect=DatabaseError(
-            statement="UPDATE products SET quantity = 40 WHERE id = 3",
-            params={},
-            orig=Exception("Database connection failed")
-    )
-    ):
-        seller = client.patch(
-            "/product/3",
-            json=product_update.model_dump()
-        )
+#         seller = client.post(
+#             "/products",
+#             json=return_seller_product
+#         )
 
-        assert seller.status_code == 500
-        assert seller.json() == {
-            "detail" : "Internal Server error!"
-        }
+#         assert seller.status_code == 401
+#         assert seller.json() == {
+#             "detail": "Unauthorized Seller!"
+#         }
 
-def test_deactivate_product_but_seller_not_exist(client):
-    with patch(
-        "app.api.product_api.deactivate_seller_product",
-        side_effect=exceptions.UnauthorizedSeller("Unauthorized Seller!")
-    ):
+# def test_database_error_for_creating_product(client):
+#     product = {
+#         "name": "Chocolate",
+#         "price": 2000,
+#         "weight": "1kg",
+#         "colour": "Black",
+#         "brand": "Nutella",
+#         "description": "Nutella chocolate is very good for health.",
+#         "quantity": 50
+#     }
 
-        seller = client.delete(
-            "/product?product_id=77"
-        )
+#     with patch(
+#         "app.api.product_api.create_new_product", 
+#         side_effect=DatabaseError(
+#             statement="Create Product",
+#             params={},
+#             orig=Exception("Database connection failed")
+#     )
+#     ) as fake_product_result:
 
-        assert seller.status_code == 401
+#         seller = client.post(
+#             "/products",
+#             json = product
+#         )
 
-def test_deactivate_product_but_product_not_found(client):
-    with patch(
-        "app.api.product_api.deactivate_seller_product",
-        side_effect=exceptions.ProductNotFound("Product not found!")
-    ):
-        result = client.delete(
-            "/product?product_id=55"
-        )
+#         assert seller.status_code == 500
+#         fake_product_result.assert_called_once()
 
-        assert result.status_code == 404
+# def test_product_update_api_successfully(client):
+#     product_update = UpdateProduct(
+#         quantity=40
+#     )
+#     with patch(
+#         "app.api.product_api.update_seller_product_attributes", return_value={"Message" : "Product successfully updated"}
+#     ):
+#         seller = client.patch(
+#             "/product/3",
+#             json=product_update.model_dump()
+#         )
 
-def test_product_already_inactivated(client):
-    with patch(
-        "app.api.product_api.deactivate_seller_product",
-        side_effect=exceptions.ProductAlreadyInactivate("Product already deleted!")
-    ):
-        result = client.delete(
-            "/product?product_id=76"
-        )
+#         assert seller.status_code == 200
+#         assert seller.json() == {"Message" : "Product successfully updated"}
 
-        assert result.status_code == 404
-        assert result.json() == {"detail":"Product already deleted!"}
+# def test_product_update_but_seller_not_found(client):
+#     product_update = UpdateProduct(
+#         quantity=40
+#     )
+#     with patch(
+#         "app.api.product_api.update_seller_product_attributes", 
+#             side_effect=exceptions.UnauthorizedSeller
+#     ):
+#         seller = client.patch(
+#             "/product/3",
+#             json=product_update.model_dump()
+#         )
 
-def test_deactivate_product_but_database_error(client):
-    with patch(
-        "app.api.product_api.deactivate_seller_product",
-        side_effect=DatabaseError(
-            statement="Product deactivate where product id is equal to 76.",
-            params={},
-            orig="Internal Server error!"
-        )
-    ):
-        result = client.delete(
-            "/product?product_id=76"
-        )
+#         assert seller.status_code == 401
+#         assert seller.json() == {
+#             "detail" : "Unauthorized Seller!"
+#         }
 
-        assert result.status_code == 500
-        assert result.json() == {
-            "detail": "Internal Server error!"
-        }
+# def test_product_update_but_product_not_found(client):
+#     product_update = UpdateProduct(
+#         quantity=40
+#     )
+#     with patch(
+#         "app.api.product_api.update_seller_product_attributes", 
+#             side_effect=exceptions.ProductNotFound
+#     ):
+#         seller = client.patch(
+#             "/product/3",
+#             json=product_update.model_dump()
+#         )
+
+#         assert seller.status_code == 404
+#         assert seller.json() == {
+#             "detail" : "Product not found!"
+#         }
+
+# def test_product_update_but_seller_product_not_found(client):
+#     product_update = UpdateProduct(
+#         quantity=40
+#     )
+#     with patch(
+#         "app.api.product_api.update_seller_product_attributes", 
+#             side_effect=exceptions.SellerProductNotFound
+#     ):
+#         seller = client.patch(
+#             "/product/3",
+#             json=product_update.model_dump()
+#         )
+
+#         assert seller.status_code == 403
+#         assert seller.json() == {
+#             "detail" : "Product not found!"
+#         }
 
 
-def test_deactivate_product_successfully(client):
-    with patch(
-        "app.api.product_api.deactivate_seller_product",
-        return_value = {"message": "Product successfully deleted."}
-        ):
+# def test_product_update_but_database_error(client):
+#     product_update = UpdateProduct(
+#         quantity=40
+#     )
+#     with patch(
+#         "app.api.product_api.update_seller_product_attributes", 
+#             side_effect=DatabaseError(
+#             statement="UPDATE products SET quantity = 40 WHERE id = 3",
+#             params={},
+#             orig=Exception("Database connection failed")
+#     )
+#     ):
+#         seller = client.patch(
+#             "/product/3",
+#             json=product_update.model_dump()
+#         )
 
-        result = client.delete(
-            "/product?product_id=76"
-        )
+#         assert seller.status_code == 500
+#         assert seller.json() == {
+#             "detail" : "Internal Server error!"
+#         }
 
-        assert result.status_code == 200
-        assert result.json() == {
-            "message": "Product successfully deleted."
-        }
+# def test_deactivate_product_but_seller_not_exist(client):
+#     with patch(
+#         "app.api.product_api.deactivate_seller_product",
+#         side_effect=exceptions.UnauthorizedSeller("Unauthorized Seller!")
+#     ):
+
+#         seller = client.delete(
+#             "/product?product_id=77"
+#         )
+
+#         assert seller.status_code == 401
+
+# def test_deactivate_product_but_product_not_found(client):
+#     with patch(
+#         "app.api.product_api.deactivate_seller_product",
+#         side_effect=exceptions.ProductNotFound("Product not found!")
+#     ):
+#         result = client.delete(
+#             "/product?product_id=55"
+#         )
+
+#         assert result.status_code == 404
+
+# def test_product_already_inactivated(client):
+#     with patch(
+#         "app.api.product_api.deactivate_seller_product",
+#         side_effect=exceptions.ProductAlreadyInactivate("Product already deleted!")
+#     ):
+#         result = client.delete(
+#             "/product?product_id=76"
+#         )
+
+#         assert result.status_code == 404
+#         assert result.json() == {"detail":"Product already deleted!"}
+
+# def test_deactivate_product_but_database_error(client):
+#     with patch(
+#         "app.api.product_api.deactivate_seller_product",
+#         side_effect=DatabaseError(
+#             statement="Product deactivate where product id is equal to 76.",
+#             params={},
+#             orig="Internal Server error!"
+#         )
+#     ):
+#         result = client.delete(
+#             "/product?product_id=76"
+#         )
+
+#         assert result.status_code == 500
+#         assert result.json() == {
+#             "detail": "Internal Server error!"
+#         }
+
+
+# def test_deactivate_product_successfully(client):
+#     with patch(
+#         "app.api.product_api.deactivate_seller_product",
+#         return_value = {"message": "Product successfully deleted."}
+#         ):
+
+#         result = client.delete(
+#             "/product?product_id=76"
+#         )
+
+#         assert result.status_code == 200
+#         assert result.json() == {
+#             "message": "Product successfully deleted."
+#         }

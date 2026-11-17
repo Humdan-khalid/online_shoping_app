@@ -1,6 +1,6 @@
 from sqlmodel import SQLModel, Field
 from datetime import datetime
-from pydantic import EmailStr, BaseModel
+from pydantic import EmailStr, BaseModel, Field as PydanticField
 
 class Sellers(SQLModel, table=True):
     id: int = Field(default=None, primary_key=True)
@@ -14,12 +14,12 @@ class Sellers(SQLModel, table=True):
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
 class CreateSeller(BaseModel):
-    name: str = Field(min_length=3, regex=r"^[a-zA-z]+$")
-    age: int = Field(ge=18, le=100)
-    phone_number: str = Field(regex=r"^03[0-9]{9}+$")
-    city: str = Field(min_length=4)
-    email: EmailStr = Field(regex=r"^[a-b0-9]+@gmail\.com$")
-    password: str = Field(min_length=8, max_length=35)
+    name: str = PydanticField(min_length=3, pattern=r"^[a-zA-Z]+(?: [a-zA-Z]+)*$")
+    age: int = PydanticField(ge=18, le=100)
+    phone_number: str = PydanticField(pattern=r"^03[0-9]{9}$")
+    city: str = PydanticField(min_length=4, pattern=r"^[a-zA-Z]+(?: [a-zA-Z]+)*$")
+    email: EmailStr
+    password: str = PydanticField(min_length=8, max_length=35)
 
 class ReadSeller(BaseModel):
     id: int

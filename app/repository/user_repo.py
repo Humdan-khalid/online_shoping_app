@@ -2,10 +2,10 @@ from app.database_models.user_model import Users
 from sqlmodel import Session, select
 from app.database_models.user_model import LoginUser, CreateUser
 
-def get_user_by_email_in_database(user: CreateUser, session: Session):
+def get_user_by_email_in_database(email: str, session: Session):
         db_user = session.exec(
             select (Users).where(
-                Users.email == user.email
+                Users.email == email
             )
         ).first()
 

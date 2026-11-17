@@ -10,7 +10,7 @@ from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
 def create_user_account(user: CreateUser, session: Session):
     try:
-        user_exist = get_user_by_email_in_database(user, session)
+        user_exist = get_user_by_email_in_database(user.email, session)
 
         if user_exist:
             logger.warning(f"User account already exists at this email | {user.email}")

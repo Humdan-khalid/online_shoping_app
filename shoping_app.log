@@ -169,3 +169,269 @@ DETAIL:  Key (phone_number)=(03182827273) already exists.
 2026-11-12 19:15:21,531 | INFO | app.core.log_config | User order successfully  created. | user_id: 39 | product_id: 81.
 2026-11-12 19:44:41,891 | INFO | app.core.log_config | User order successfully  created. | user_id: 39 | product_id: 81.
 2026-11-12 19:50:00,276 | INFO | app.core.log_config | User order successfully  created. | user_id: 39 | product_id: 81.
+2026-11-16 15:09:53,708 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 15:09:53,727 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:09:54,556 | INFO | httpx | HTTP Request: POST http://testserver/products "HTTP/1.1 404 Not Found"
+2026-11-16 15:09:54,712 | INFO | httpx | HTTP Request: POST http://testserver/products "HTTP/1.1 404 Not Found"
+2026-11-16 15:09:54,851 | INFO | httpx | HTTP Request: POST http://testserver/products "HTTP/1.1 404 Not Found"
+2026-11-16 15:09:56,112 | INFO | httpx | HTTP Request: DELETE http://testserver/product?product_id=77 "HTTP/1.1 401 Unauthorized"
+2026-11-16 15:09:56,250 | INFO | httpx | HTTP Request: DELETE http://testserver/product?product_id=55 "HTTP/1.1 404 Not Found"
+2026-11-16 15:09:57,291 | INFO | httpx | HTTP Request: DELETE http://testserver/product?product_id=76 "HTTP/1.1 500 Internal Server Error"
+2026-11-16 15:09:57,412 | INFO | httpx | HTTP Request: DELETE http://testserver/product?product_id=76 "HTTP/1.1 200 OK"
+2026-11-16 15:09:57,653 | WARNING | app.core.log_config | User account already exists at this email | hamdan87@gmail.com
+2026-11-16 15:09:57,653 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-16 15:09:57,799 | WARNING | app.core.log_config | User account already exists at this email | hamdan87@gmail.com
+2026-11-16 15:09:57,800 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-16 15:09:57,946 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:09:58,072 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:09:58,176 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:09:58,287 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:09:58,388 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:09:58,493 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:09:58,601 | WARNING | app.core.log_config | User login failed with wrong email | hamdagaf@gmail.com
+2026-11-16 15:09:58,602 | INFO | httpx | HTTP Request: POST http://testserver/user-login "HTTP/1.1 404 Not Found"
+2026-11-16 15:10:00,224 | WARNING | app.core.log_config | User login failed with wrong email | fatima@gmail.com
+2026-11-16 15:10:00,499 | WARNING | app.core.log_config | User login failed with wrong password | Hekdahj212
+2026-11-16 15:10:00,837 | INFO | app.core.log_config | User successfully login | user_id: 1.
+2026-11-16 15:10:01,007 | WARNING | app.core.log_config | User account already exists at this email | ahmad123@gmail.com
+2026-11-16 15:10:01,219 | INFO | app.core.log_config | Successfully new user account created with this email | ahmad12333@gmail.com
+2026-11-16 15:10:01,495 | ERROR | app.core.log_config | Password not found!
+2026-11-16 15:12:30,348 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 15:12:30,351 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:13:23,480 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 15:13:23,487 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:13:37,228 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 15:13:37,233 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 422 Unprocessable Entity"
+2026-11-16 15:16:00,181 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 15:16:00,302 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 15:16:00,306 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-16 16:46:30,421 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 16:46:30,548 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 16:46:30,556 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-16 16:47:13,635 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 16:47:13,730 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 16:47:13,730 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-16 16:54:36,290 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 16:54:36,398 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 16:54:36,398 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-16 16:58:21,308 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 16:58:21,397 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 16:58:21,413 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-16 16:59:09,486 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 16:59:09,607 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 16:59:09,607 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-16 17:02:53,614 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 17:02:53,723 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 17:02:53,723 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-16 17:03:14,730 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 17:03:14,839 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 17:03:14,855 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-16 17:03:31,695 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 17:03:31,808 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 17:03:31,808 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-16 17:03:48,853 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-16 17:03:48,965 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-16 17:03:48,965 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 16:17:22,979 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 16:17:23,107 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 16:17:23,109 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 16:18:11,247 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 16:18:11,374 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 16:18:11,374 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 16:30:43,658 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 16:30:43,768 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 16:30:43,768 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 16:32:15,354 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 16:32:15,452 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 16:32:15,452 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 16:37:00,347 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 16:37:00,475 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 16:37:00,475 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:01:43,118 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:01:43,212 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:01:43,228 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:02:28,898 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:02:29,009 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:02:29,009 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:03:45,251 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:03:45,344 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:03:45,344 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:08:33,592 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:08:33,728 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:08:33,728 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:13:05,625 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:13:05,735 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:13:05,735 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:13:05,917 | ERROR | app.core.log_config | Password not found!
+2026-11-17 17:13:36,267 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:13:36,404 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:13:36,404 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:13:48,989 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:13:49,101 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:13:49,101 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:13:49,281 | ERROR | app.core.log_config | Password not found!
+2026-11-17 17:38:10,941 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:38:11,054 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:38:11,058 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:38:11,109 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 17:38:11,256 | ERROR | app.core.log_config | Password not found!
+2026-11-17 17:38:26,990 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:38:27,098 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:38:27,114 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:38:27,169 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 17:38:27,597 | ERROR | app.core.log_config | Password not found!
+2026-11-17 17:40:35,040 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:40:35,157 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:40:35,160 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:40:35,211 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 17:40:35,348 | ERROR | app.core.log_config | Password not found!
+2026-11-17 17:40:44,045 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 17:40:44,152 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 17:40:44,152 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 17:40:44,214 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 17:40:44,634 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:07:07,946 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:07:08,071 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:07:08,073 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:07:08,123 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:07:08,216 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:07:08,354 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:07:48,457 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:07:48,601 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:07:48,603 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:07:48,661 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:07:48,754 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:07:48,912 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:09:17,507 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:09:17,616 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:09:17,616 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:09:17,669 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:09:17,745 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:09:17,881 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:18:57,062 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:18:57,157 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:18:57,157 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:18:57,217 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:18:57,292 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:18:57,365 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:18:57,771 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:26:01,481 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:26:01,574 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:26:01,574 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:26:01,635 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:26:01,711 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:26:01,787 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:26:02,200 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:26:16,587 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:26:16,679 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:26:16,696 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:26:16,740 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:26:16,820 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:26:16,892 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:26:17,373 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:26:31,156 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:26:31,273 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:26:31,273 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:26:31,320 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:26:31,397 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:26:31,471 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:26:31,606 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:27:24,126 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:27:24,273 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:27:24,273 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:27:24,336 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:27:24,423 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:27:24,523 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:27:24,776 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:30:51,343 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:30:51,437 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:30:51,453 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:30:51,522 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:30:51,604 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:30:51,679 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:30:51,871 | ERROR | app.core.log_config | Password not found!
+2026-11-17 19:31:09,629 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 19:31:09,722 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 19:31:09,739 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 19:31:09,784 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 19:31:09,862 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 19:31:10,053 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:13:36,547 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:13:36,661 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:13:36,661 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:13:36,705 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:13:36,784 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:13:36,977 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:14:53,390 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:14:53,507 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:14:53,509 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:14:53,575 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:14:53,661 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:14:53,848 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:15:41,522 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:15:41,610 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:15:41,610 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:15:41,671 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:15:41,747 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:15:41,926 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:17:05,130 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:17:05,237 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:17:05,239 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:17:05,286 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:17:05,361 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:17:05,557 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:17:14,139 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:17:14,232 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:17:14,248 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:17:14,294 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:17:14,372 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:17:14,551 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:17:29,375 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:17:29,470 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:17:29,470 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:17:29,522 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:17:29,589 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:17:29,798 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:18:03,714 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:18:03,810 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:18:03,810 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:18:03,863 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:18:03,939 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:18:04,126 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:18:12,329 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:18:12,447 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:18:12,449 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:18:12,497 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:18:12,583 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:18:12,801 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:18:22,465 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:18:22,560 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:18:22,560 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:18:22,615 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:18:22,696 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:18:22,889 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:18:47,680 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:18:47,805 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:18:47,805 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:18:47,874 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:18:47,970 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:18:48,171 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:46:29,159 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:46:29,269 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:46:29,269 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:46:29,314 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:46:29,394 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:46:29,474 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:46:29,861 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:54:22,232 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:54:22,313 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:54:22,331 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:54:22,374 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:54:22,447 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:54:22,666 | ERROR | app.core.log_config | Password not found!
+2026-11-17 20:58:45,019 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 20:58:45,121 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 20:58:45,124 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 20:58:45,184 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 20:58:45,275 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 20:58:45,487 | ERROR | app.core.log_config | Password not found!
