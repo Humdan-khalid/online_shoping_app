@@ -30,5 +30,5 @@ def user_login(user: LoginUser, session: Session = Depends(get_session)):
     except exceptions.InvalidCredentials:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Invalid email or password!")
     
-    except DatabaseError:
+    except exceptions.DatabaseError:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Internal Server Error!")

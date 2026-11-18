@@ -435,3 +435,1392 @@ DETAIL:  Key (phone_number)=(03182827273) already exists.
 2026-11-17 20:58:45,184 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
 2026-11-17 20:58:45,275 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
 2026-11-17 20:58:45,487 | ERROR | app.core.log_config | Password not found!
+2026-11-17 21:36:54,241 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 21:36:54,328 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 21:36:54,346 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 21:36:54,396 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 21:36:54,481 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 21:36:54,546 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 21:36:54,921 | ERROR | app.core.log_config | Password not found!
+2026-11-17 21:37:07,124 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 21:37:07,217 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 21:37:07,217 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 21:37:07,277 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 21:37:07,358 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 21:37:07,508 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$J5lWBtiSF6HDVPLmZTxFIu0h3vX71iyMI8hCx7k/oEoY99v4pDqHC', '2026-11-17 16:37:07.507467')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-17 21:37:08,349 | ERROR | app.core.log_config | Password not found!
+2026-11-17 21:41:12,364 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 21:41:12,468 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 21:41:12,470 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 21:41:12,539 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 21:41:12,623 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 21:41:13,035 | ERROR | app.core.log_config | Password not found!
+2026-11-17 21:42:51,482 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 21:42:51,569 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 21:42:51,569 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 21:42:51,620 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 21:42:51,697 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 21:42:51,826 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$cQ8Ac0A1LmmTk2krzF573ewojXQapsUqX8IaWl8d75xEQ88UKf9eO', '2026-11-17 16:42:51.826465')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-17 21:42:51,969 | ERROR | app.core.log_config | Password not found!
+2026-11-17 22:04:15,782 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:04:15,871 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:04:15,871 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:04:15,900 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:04:15,971 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:04:15,971 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:04:16,027 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 22:04:16,103 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 22:04:16,233 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$baw5jMiVbLNBGo3JV3hu1efrs0LtKJP9yKEvgblBZidQulR5so1eS', '2026-11-17 17:04:16.232952')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-17 22:04:16,368 | ERROR | app.core.log_config | Password not found!
+2026-11-17 22:04:28,770 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:04:28,861 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:04:28,861 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:04:28,881 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:04:28,945 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:04:28,945 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:04:29,236 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 22:04:29,325 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 22:04:29,461 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$LrJwti1OSDLKpVT/y7k6dODd0wyTobSVZcxsSKI4KtWhLNpOlGNgq', '2026-11-17 17:04:29.460933')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-17 22:04:29,605 | ERROR | app.core.log_config | Password not found!
+2026-11-17 22:22:12,648 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:22:12,822 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:22:12,823 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:22:12,851 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:22:12,971 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:22:12,971 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:22:13,530 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 22:22:13,660 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 22:22:13,906 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$oXGNplRlQrOfcgoyU88a2.d5swFxV/xU7c04p2fA23vCqtVeIdnBi', '2026-11-17 17:22:13.905548')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-17 22:22:14,150 | ERROR | app.core.log_config | Password not found!
+2026-11-17 22:26:48,003 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:26:48,094 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:26:48,094 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:26:48,127 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:26:48,194 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:26:48,194 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:26:48,449 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 22:26:48,527 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 22:26:48,659 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$2JKRPHB70ObXc7YKmqVksOdxMYlnQI61NMO44QTODaoOWIs1GGVzS', '2026-11-17 17:26:48.658533')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-17 22:26:48,800 | ERROR | app.core.log_config | Password not found!
+2026-11-17 22:28:44,096 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:28:44,187 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:28:44,187 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:28:44,210 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-17 22:28:44,282 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-17 22:28:44,284 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-17 22:28:44,334 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-17 22:28:44,413 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-17 22:28:44,579 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$LejbirXLgSUnS/Lap9DeVuVqc22HE7ZNH5FPO3/7YWXtlaJI5kRO.', '2026-11-17 17:28:44.579498')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-17 22:28:44,738 | ERROR | app.core.log_config | Password not found!
+2026-11-18 18:50:01,309 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:50:01,492 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:50:01,496 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:50:01,523 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:50:01,628 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:50:01,628 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:50:01,628 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:50:01,642 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-18 18:50:01,646 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:50:01,723 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-18 18:50:01,849 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-18 18:50:02,064 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$MjtmJslnDfyu1etSOZ0i7eLaZ8axfjYtpm6NsaUJCYEBRwOoDhgba', '2026-11-18 13:50:02.064770')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 18:50:02,354 | ERROR | app.core.log_config | Password not found!
+2026-11-18 18:51:10,968 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:51:11,109 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:51:11,109 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:51:11,136 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:51:11,229 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:51:11,229 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:51:11,229 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:51:11,229 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-18 18:51:11,229 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:51:11,314 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-18 18:51:11,413 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-18 18:51:11,618 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$BAaiGR1CJ7GL.mKivDJh8eyzbcTSUOf13WKPBvAAfFVyIJWk05zKO', '2026-11-18 13:51:11.618313')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 18:51:12,033 | ERROR | app.core.log_config | Password not found!
+2026-11-18 18:52:59,372 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:52:59,484 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:52:59,486 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:52:59,506 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:52:59,589 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:52:59,591 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:52:59,593 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:52:59,596 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-18 18:52:59,596 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:52:59,618 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:52:59,680 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan122@gmail.com
+2026-11-18 18:52:59,697 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:52:59,698 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:52:59,700 | WARNING | app.core.log_config | User account already exists at this email | hamdan122@gmail.com
+2026-11-18 18:52:59,701 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:52:59,741 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-18 18:52:59,819 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-18 18:52:59,947 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$DRDxIx5TBUWJWPklK.4jdu9DjJqHcOPzi0/v4/FfUrbl4ldvCY8GS', '2026-11-18 13:52:59.947520')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 18:53:00,096 | ERROR | app.core.log_config | Password not found!
+2026-11-18 18:53:54,229 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:53:54,320 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:53:54,320 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:53:54,345 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:53:54,423 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:53:54,425 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:53:54,426 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:53:54,428 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-18 18:53:54,428 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:53:54,442 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:53:54,504 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan122@gmail.com
+2026-11-18 18:53:54,510 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:53:54,510 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:53:54,510 | WARNING | app.core.log_config | User account already exists at this email | hamdan122@gmail.com
+2026-11-18 18:53:54,510 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:53:54,872 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-18 18:53:54,954 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-18 18:53:55,086 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$VOeIEB9V/PRt2ptZE/hgrOOxPFZmEfMpdKr0LokmCIiNJY7Uo6Y3u', '2026-11-18 13:53:55.085453')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 18:53:55,329 | ERROR | app.core.log_config | Password not found!
+2026-11-18 18:54:33,788 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:54:33,869 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:54:33,869 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:54:33,885 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:54:33,957 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:54:33,958 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:54:33,959 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:54:33,961 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-18 18:54:33,962 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:54:33,975 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:54:34,042 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan122@gmail.com
+2026-11-18 18:54:34,043 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:54:34,044 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:54:34,046 | WARNING | app.core.log_config | User account already exists at this email | hamdan122@gmail.com
+2026-11-18 18:54:34,046 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:54:34,318 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-18 18:54:34,398 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-18 18:54:34,527 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$UGxb5H41qEvzvUGMFTjbb.Thp9eC9ibVajGJBvaxAtn..Sb7PkLFK', '2026-11-18 13:54:34.527637')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 18:54:34,678 | ERROR | app.core.log_config | Password not found!
+2026-11-18 18:58:27,264 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:58:27,351 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:58:27,351 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:58:27,379 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:58:27,452 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:58:27,454 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:58:27,455 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:58:27,457 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-18 18:58:27,457 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:58:27,471 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:58:27,536 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan122@gmail.com
+2026-11-18 18:58:27,536 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:58:27,801 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-18 18:58:27,873 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-18 18:58:28,010 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$T9GVh3NuM.RwbrDZRTtRdu.QqEoIkqFqdtJpvBJdB7aZzBcgZ0kDW', '2026-11-18 13:58:28.009349')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 18:58:28,153 | ERROR | app.core.log_config | Password not found!
+2026-11-18 18:59:40,642 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:59:40,741 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:59:40,741 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:59:40,765 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:59:40,838 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 18:59:40,840 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:59:40,841 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:59:40,841 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-18 18:59:40,841 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:59:40,864 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:59:40,943 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan122@gmail.com
+2026-11-18 18:59:40,943 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 18:59:40,943 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 18:59:41,007 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Hamdan', 20, '03190286038', 'karachi', 'hamdan@gmail.com', '$2b$10$UyddzOLLNNXkPhuUseLyKebJfsrG1gTD8WBgz6eTpGyCNFSNh6JTm', '2026-11-18 13:59:41.007989')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 18:59:41,025 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 18:59:41,079 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-18 18:59:41,163 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-18 18:59:41,300 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$km2dokFYsZNTVpe8x3l9iOFc7z.lrY2dvrzJvtONFcU7N8xOZA2qi', '2026-11-18 13:59:41.299046')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 18:59:41,437 | ERROR | app.core.log_config | Password not found!
+2026-11-18 19:04:23,437 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 19:04:23,532 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 19:04:23,532 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 19:04:23,595 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 19:04:23,665 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan@gmail.com
+2026-11-18 19:04:23,665 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 19:04:23,665 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 19:04:23,679 | WARNING | app.core.log_config | User account already exists at this email | hamdan@gmail.com
+2026-11-18 19:04:23,679 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 19:04:23,679 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 19:04:23,760 | INFO | app.core.log_config | Successfully new user account created with this email | hamdan122@gmail.com
+2026-11-18 19:04:23,762 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 201 Created"
+2026-11-18 19:04:23,762 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 19:04:23,814 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Hamdan', 20, '03190286038', 'karachi', 'hamdan@gmail.com', '$2b$10$kfO3epBKQq45Q3E06SzTbOGG1tsXAmclPwOCcDXxXJAysy/.M4AC.', '2026-11-18 14:04:23.814761')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 19:04:23,830 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 409 Conflict"
+2026-11-18 19:04:23,848 | INFO | httpx | HTTP Request: POST http://testserver/users/ "HTTP/1.1 307 Temporary Redirect"
+2026-11-18 19:04:23,852 | INFO | httpx | HTTP Request: POST http://testserver/users "HTTP/1.1 500 Internal Server Error"
+2026-11-18 19:04:23,892 | WARNING | app.core.log_config | User account already exists at this email | abubakar@gmail.com
+2026-11-18 19:04:23,966 | INFO | app.core.log_config | Successfully new user account created with this email | abubakar@gmail.com
+2026-11-18 19:04:24,108 | ERROR | app.core.log_config | User creation failed because of duplicate or invalid database data.
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.IntegrityError: UNIQUE constraint failed: users.phone_number
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\services\user_service.py", line 28, in create_user_account
+    new_user_save_in_database(new_user, session)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\app\repository\user_repo.py", line 26, in new_user_save_in_database
+    session.commit()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 2035, in commit
+    trans.commit(_to_root=True)
+  File "<string>", line 2, in commit
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1316, in commit
+    self._prepare_impl()
+  File "<string>", line 2, in _prepare_impl
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\state_changes.py", line 137, in _go
+    ret_value = fn(self, *arg, **kw)
+                ^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 1290, in _prepare_impl
+    self.session.flush()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4353, in flush
+    self._flush(objects)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4488, in _flush
+    with util.safe_reraise():
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\util\langhelpers.py", line 122, in __exit__
+    raise exc_value.with_traceback(exc_tb)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\session.py", line 4449, in _flush
+    flush_context.execute()
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 465, in execute
+    rec.execute(self)
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\unitofwork.py", line 641, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 94, in save_obj
+    _emit_insert_statements(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\orm\persistence.py", line 1234, in _emit_insert_statements
+    result = connection.execute(
+             ^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1421, in execute
+    return meth(
+           ^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\sql\elements.py", line 526, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1643, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 2365, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "D:\Hamdan Things\Real_world_projects\online_shoping_app\.venv\Lib\site-packages\sqlalchemy\engine\default.py", line 952, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) UNIQUE constraint failed: users.phone_number
+[SQL: INSERT INTO users (name, age, phone_number, city, email, password, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)]
+[parameters: ('Abu Bakar', 44, '03190286038', 'Karachi', 'abubakar11@gmail.com', '$2b$10$b4sO82zKQsCPVpWONAqYqO/MTSFHELqOKRPC.Yp3WW8mN/5joXNnS', '2026-11-18 14:04:24.107235')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-11-18 19:04:24,231 | ERROR | app.core.log_config | Password not found!

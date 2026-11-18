@@ -4,6 +4,7 @@ from app.database_models.user_model import Users
 import pytest
 from app.core import exceptions
 from app.utils.password_hash import pwd_context
+from app.core import exceptions
 
 
 fk_db = Mock()
@@ -54,3 +55,31 @@ def test_user_account_return_output(session):
     assert result.city == new_user.city
     assert result.email == new_user.email
     assert pwd_context.verify(new_user.password, result.password) is True
+
+
+def test_user_account_duplicate_error(session):
+    user = Users(
+        name="Abu Bakar",
+        age=44,
+        phone_number="03190286038",
+        city="Karachi",
+        email="abubakar@gmail.com",
+        password="Hello2726#@"
+    )
+    session.add(user)
+    session.commit()
+    session.refresh(user)
+
+    user = Users(
+        name="Abu Bakar",
+        age=44,
+        phone_number="03190286038",
+        city="Karachi",
+        email="abubakar11@gmail.com",
+        password="Hello2726#@"
+    )
+
+    with pytest.raises(exceptions.DuplicateUserData):
+        create_user_account(user, session)
+
+
