@@ -75,4 +75,3 @@ def login_user_by_email(user: LoginUser, session: Session):
         "access_token": token,
         "token_type": "Bearer"
         }
-

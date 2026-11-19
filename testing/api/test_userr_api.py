@@ -77,7 +77,7 @@ def test_create_new_user_account_but_user_duplicate_phone_no(client):
 from unittest.mock import patch
 
 
-def test_create_user_database_error(client):
+def test_create_user_but_database_error(client):
 
     new_user = {
         "name": "Hamdan",
@@ -100,3 +100,57 @@ def test_create_user_database_error(client):
     data = response.json()
 
     assert data["detail"] == "Internal Server Error!"
+
+def test_user_login_but_database_error(client):
+    user =  {
+            "email": "hamdan@gmail.com",
+            "password": "Grieund211"
+        }
+
+    with patch(
+        "app.api.user_api.login_user_by_email",
+        side_effect = exceptions.DatabaseError
+    ):
+        response = client.post("/user-login", json=user)
+
+        assert response.status_code == 500
+
+        message = response.json()
+
+        assert message["detail"] == "Internal Server Error!"
+        
+def test_user_login_but_invalid_email(client):
+    user =  {
+            "email": "hamdan@gmail.com",
+            "password": "Grieund211"
+        }
+
+    with patch(
+        "app.api.user_api.login_user_by_email",
+        side_effect = exceptions.InvalidCredentials
+    ):
+        response = client.post("/user-login", json=user)
+
+        assert response.status_code == 404
+
+        message = response.json()
+
+        assert message["detail"] == "Invalid email or password!"
+
+def test_user_login_but_password_not_found(client):
+    user =  {
+            "email": "hamdan@gmail.com",
+            "password": "Grieund211"
+        }
+
+    with patch(
+        "app.api.user_api.login_user_by_email",
+        side_effect = exceptions.InvalidCredentials
+    ):
+        response = client.post("/user-login", json=user)
+
+        assert response.status_code == 404
+
+        message = response.json()
+
+        assert message["detail"] == "Invalid email or password!"
