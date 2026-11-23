@@ -10,7 +10,7 @@ from app.core.jwt_token import create_token
 def create_new_seller_account(seller: CreateSeller, session: Session):
 
     try:
-        db_seller = find_seller_to_email(seller, session)
+        db_seller = find_seller_to_email(seller.email, session)
 
         if db_seller:
             logger.warning(f"Seller account already exists at this email. | {seller.email}")
@@ -38,14 +38,14 @@ def create_new_seller_account(seller: CreateSeller, session: Session):
     
     except SQLAlchemyError:
         session.rollback()
-        logger.exception("Database error while creating a new seller account!")
+        logger.exception("Database error while creating a new seller account")
         raise exceptions.DatabaseError("Database Error!")
 
   
 
 def seller_account_login(seller: SellerLogin, session: Session):
     try:
-        seller_exist = find_seller_for_login(seller, session)
+        seller_exist = find_seller_for_login(seller.email, session)
 
     except SQLAlchemyError:
         session.rollback()

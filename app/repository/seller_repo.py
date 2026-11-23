@@ -1,10 +1,11 @@
 from app.database_models.seller_model import Sellers, CreateSeller, SellerLogin
 from sqlmodel import Session, select
+from pydantic import EmailStr
 
-def find_seller_to_email(seller: CreateSeller, session: Session):
+def find_seller_to_email(email: EmailStr, session: Session):
     return session.exec(
             select(Sellers).where(
-                Sellers.email == seller.email)
+                Sellers.email == email)
                 ).first()
 
 
@@ -13,10 +14,10 @@ def seller_data_save_in_database(seller: Sellers, session: Session):
         session.commit()
         session.refresh(seller)
 
-def find_seller_for_login(seller: SellerLogin, session: Session):
+def find_seller_for_login(email: EmailStr, session: Session):
       return session.exec(
                     select(Sellers).where(
-                        Sellers.email == seller.email)).first()
+                        Sellers.email == email)).first()
 
 def find_seller_in_database(seller_id: int, session: Session):
     db_seller = session.exec(

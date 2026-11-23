@@ -1,5 +1,6 @@
-from app.api.user_api  import create_user_new_account
+from app.database_models.user_model import Users, LoginUser
 from app.core import exceptions
+from app.utils.password_hash import create_hash_password
 
 def test_create_new_user_account(client):
     new_user = {
@@ -154,3 +155,27 @@ def test_user_login_but_password_not_found(client):
         message = response.json()
 
         assert message["detail"] == "Invalid email or password!"
+
+def test_user_login_successfully(client, session):
+    user = Users(
+        name="Hamdan",
+        age=22,
+        city="Karachi",
+        phone_number="03190286038",
+        email="hamdan@gmail.com",
+        password=create_hash_password("Bismllah2830#$@")
+    )
+    session.add(user)
+    session.commit()
+    session.refresh(user)
+
+    user_login = LoginUser(
+        email="hamdan@gmail.com",
+        password="Bismllah2830#$@"
+    )
+
+    response = client.post("/user-login", json=user_login.model_dump())
+
+    assert response.status_code == 200
+    assert response.json()["access_token"] is not None
+    assert response.json()["token_type"] == "Bearer"

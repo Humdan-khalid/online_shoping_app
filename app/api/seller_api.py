@@ -14,7 +14,7 @@ def create_seller_account(seller: CreateSeller, session: Session = Depends(get_s
         return create_new_seller_account(seller, session)
 
     except exceptions.SellerAlreadyExist:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="An Seller account already exists at your email!")
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="A seller account already exists with this email!")
 
     
     except exceptions.DuplicateSellerData:
