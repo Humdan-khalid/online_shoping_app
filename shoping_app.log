@@ -31246,3 +31246,5 @@ Traceback (most recent call last):
 sqlalchemy.exc.SQLAlchemyError: Database Error during admin login!
 2026-11-23 19:17:28,943 | INFO | app.core.log_config | User successfully login | user_id: 1.
 2026-11-23 19:17:29,090 | ERROR | app.core.log_config | Password not found!
+2026-11-24 20:33:42,368 | WARNING | app.core.jwt_token | Invalid token!
+2026-11-24 20:34:19,584 | WARNING | app.core.log_config | Seller attempted to update a product that does not belong to them. | Product_id: 85 | seller_id: 30

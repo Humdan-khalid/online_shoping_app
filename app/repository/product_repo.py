@@ -69,5 +69,5 @@ def find_carts_in_database(product_id: int, session: Session):
     return db_cart
 
 def update_product_attributes_in_database(product: UpdateProduct, session: Session):
-    session.add(product)
     session.commit()
+    return product
